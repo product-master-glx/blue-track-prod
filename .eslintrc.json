@@ -1,0 +1,42 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true,
+		"jest": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:react/jsx-runtime",
+		"plugin:react-hooks/recommended",
+		"prettier",
+		"plugin:prettier/recommended"
+	],
+	"globals": {
+		"React": "readonly"
+	},
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": "latest",
+		"sourceType": "module"
+	},
+	"settings": { "react": { "version": "18.2" } },
+	"plugins": ["prettier", "react-refresh"],
+	"rules": {
+		"react-refresh/only-export-components": ["warn", { "allowConstantExport": true }],
+		// we want to force semicolons
+		"semi": ["error", "always"],
+		// we want to avoid extraneous spaces
+		"no-multi-spaces": ["error"],
+		"strict": [2, "never"],
+		"prefer-const": 2,
+		"react/react-in-jsx-scope": "error",
+		"react/prop-types": "off",
+		"react/display-name": "off",
+		"no-unused-vars": [2, { "args": "all", "argsIgnorePattern": "^_" }],
+		"no-irregular-whitespace": 1,
+		"no-duplicate-imports": 2
+	}
+}

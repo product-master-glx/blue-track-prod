@@ -1,0 +1,33 @@
+name: Change Dev API requests to Prod API
+on: [push , pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Find and Replace glx-blue-i
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "glx-blue-i"
+          replace: "glx-blue-p"
+          regex: true
+          exclude: ".github/**"
+      - name: Find and Replace galaxeye-blue-dev
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "galaxeye-blue-dev"
+          replace: "galaxeye-blue-prod"
+          regex: true
+          exclude: ".github/**"
+      - name: Find and Replace galaxeye-blue-internal
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "galaxeye-blue-internal"
+          replace: "galaxeye-blue-prod"
+          regex: true
+          exclude: ".github/**"
+      - name: Push changes
+        uses: stefanzweifel/git-auto-commit-action@v4

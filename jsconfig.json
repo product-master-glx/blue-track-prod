@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/components/*": ["./components/*"],
+			"@/constants/*": ["./constants/*"],
+			"@/jotai/*": ["./jotai/*"],
+			"@/pages/*": ["./pages/*"],
+			"@/src/*": ["./src/*"],
+			"@/api-handlers/*": ["./api-handlers/*"]
+		}
+	},
+	"include": ["."]
+}
