@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 import { sateliteViewAtom, setSateliteViewAtom } from "@/jotai/index"; // Import Jotai atoms
 
 const Toggle = () => {
-	const [sateliteView, ] = useAtom(sateliteViewAtom);
+	const [sateliteView] = useAtom(sateliteViewAtom);
 	const [, toggleSateliteView] = useAtom(setSateliteViewAtom);
 
 	const handleToggle = (_, newValue) => {
