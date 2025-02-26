@@ -1,6 +1,6 @@
 import Map from "react-map-gl/maplibre";
-import { mapCenterAtom, mapZoomAtom, sateliteViewAtom } from "@/jotai/index";
-import { useAtomValue, useAtom } from "jotai";
+import { mapCenterAtom, mapZoomAtom,sateliteViewAtom } from "@/jotai/index";
+import { useAtomValue,useAtom } from "jotai";
 import "maplibre-gl/dist/maplibre-gl.css";
 import MapSource from "./MapSource";
 

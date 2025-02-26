@@ -4,7 +4,7 @@ import MapGradientLegend from "./mapGradientLegend";
 import ChangeMapView from "./changeMapView";
 import MapGeocoder from "./MapGeocoder";
 import { mapCenterAtom, mapZoomAtom, sateliteViewAtom } from "@/jotai/index";
-import { useAtomValue, useAtom } from "jotai";
+import { useAtomValue,useAtom } from "jotai";
 import "maplibre-gl/dist/maplibre-gl.css";
 import TooltipPopup from "./TooltipPopup";
 import Toggle from "./Toggle";
