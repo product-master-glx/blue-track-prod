@@ -6,8 +6,8 @@ export const awsAPIDomain = "https://03ybm05ec1.execute-api.ap-south-1.amazonaws
 
 export const azureAPIDomain = "https://galaxeye-blue-prod.eastus.cloudapp.azure.com";
 
-export const azureDevAPIDomain = "https://galaxeye-blue-internal.eastus.cloudapp.azure.com";
-// export const azureDevAPIDomain = "https://galaxeye-blue-track-prod.eastus.cloudapp.azure.com";
+// export const azureDevAPIDomain = "https://galaxeye-blue-internal.eastus.cloudapp.azure.com";
+export const azureDevAPIDomain = "https://galaxeye-blue-track-prod.eastus.cloudapp.azure.com";
 
 const glxBlueEndpoint = "/glx-blue-p";
 
