@@ -67,14 +67,6 @@ const unitOfParametersAtom = atom({
 	TAN: "ppm",
 });
 
-export const sateliteViewAtom = atom(false);
-
-// To set the satellite view state
-export const setSateliteViewAtom = atom(
-	(get) => get(sateliteViewAtom),
-	(_, set, newValue) => set(sateliteViewAtom, newValue)
-);
-
 export const cycloneBoundryAtom = atom({});
 
 export const currentFarmerNameAtom = atom(null);
