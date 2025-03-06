@@ -74,13 +74,13 @@ const GetRegionData = async (
 	_SET_MAP_ZOOM_ATOM,
 	SET_MAP_CENTER_ATOM,
 	SET_METADATA_FOR_ORDER,
-	SET_CURRENT_ORDER_DATA
+	SET_CURRENT_ORDER_DATA,
+	sateliteView
 	// SET_FSM_DATA_FOR_CURRENT_ORDER,
 	// SET_WQA_DATA_FOR_CURRENT_ORDER
 ) => {
 	const store = getDefaultStore();
 	const current_order = store.get(currentOrderDataAtom);
-
 	// console.log("data region props",data);
 
 	if (
@@ -146,14 +146,22 @@ const GetRegionData = async (
 	mandalsData?.map((feature) => {
 		const currentPondCount = Object.values(feature.meta?.count_summary || {}).pop();
 		feature.meta.count_status = currentPondCount;
-		feature.meta.color = colorGradientInsight.getColor(
+		feature.meta.color = sateliteView ? `${colorGradientInsight.getColor(
 			feature.meta.total_running_acreage
 				? Math.round(
-						(feature.meta.total_running_acreage / currentHighestCountRegionInsight) *
-							100
-				  ) + 1
+					(feature.meta.total_running_acreage / currentHighestCountRegionInsight) *
+					100
+				) + 1
 				: 1
-		);
+		)}33` : `${colorGradientInsight.getColor(
+			feature.meta.total_running_acreage
+				? Math.round(
+					(feature.meta.total_running_acreage / currentHighestCountRegionInsight) *
+					100
+				) + 1
+				: 1
+		)}`
+		// console.log("feature.meta.color", feature.meta.color);
 		feature.meta.mandal = true;
 		feature.meta.village = false;
 		if (data.mandalId) {
@@ -220,15 +228,23 @@ const GetRegionData = async (
 			feature.meta.count_status = currentPondCount;
 
 			feature.meta.village_slug = feature.slug;
-			feature.meta.color = colorGradientInsight.getColor(
+			feature.meta.color = sateliteView ? `${colorGradientInsight.getColor(
 				feature.meta.total_running_acreage
 					? Math.round(
-							(feature.meta.total_running_acreage /
-								currentHighestCountRegionInsight) *
-								100
-					  ) + 1
+						(feature.meta.total_running_acreage /
+							currentHighestCountRegionInsight) *
+						100
+					) + 1
 					: 1
-			);
+			)}33` : `${colorGradientInsight.getColor(
+				feature.meta.total_running_acreage
+					? Math.round(
+						(feature.meta.total_running_acreage /
+							currentHighestCountRegionInsight) *
+						100
+					) + 1
+					: 1
+			)}`
 			feature.meta.village_name = feature.name;
 			feature.meta.mandal = false;
 			feature.meta.village = true;

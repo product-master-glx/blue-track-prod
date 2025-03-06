@@ -58,6 +58,7 @@ function RegionInsightData() {
 			</Stack>
 			<RegionInsightToggleButton />
 			<RegionInsightBarChart />
+			
 		</Stack>
 	);
 }

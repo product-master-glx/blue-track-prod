@@ -1,16 +1,16 @@
 import { Layer, useMap } from "react-map-gl/maplibre";
 import {
 	boundingBoxCoordinatesToZoomAtom,
-	currentPondsToShowAccordingToCountAtom,
+	currentPondsToShowAccordingToCountAtom, sateliteViewAtom
 } from "@/jotai/index";
-import { useAtomValue } from "jotai";
+import { useAtomValue, useAtom } from "jotai";
 import { useEffect } from "react";
 
 function MapLayer({ MAP_LAYER_ID, MAP_SOURCE_ID }) {
 	const { current: map } = useMap();
 	const boundingBoxCoordinatesToZoom = useAtomValue(boundingBoxCoordinatesToZoomAtom);
 	const CURRENT_PONDS_TO_SHOW_VALUE = useAtomValue(currentPondsToShowAccordingToCountAtom);
-
+	const [sateliteView] = useAtom(sateliteViewAtom);
 	console.log("CURRENT_PONDS_TO_SHOW_VALUE", CURRENT_PONDS_TO_SHOW_VALUE);
 	useEffect(() => {
 		if (map && boundingBoxCoordinatesToZoom) {
@@ -43,7 +43,7 @@ function MapLayer({ MAP_LAYER_ID, MAP_SOURCE_ID }) {
 								["==", ["get", "total_ponds"], 0],
 								["==", ["get", "village"], true],
 							],
-							"#ffcc00",
+							sateliteView ? "#ffcc001A" : "#ffcc00",
 							[
 								"all",
 								["==", ["get", "current_selected"], false],
@@ -57,7 +57,7 @@ function MapLayer({ MAP_LAYER_ID, MAP_SOURCE_ID }) {
 								["==", ["get", "current_aoi"], "village"],
 								["==", ["get", "village"], true],
 							],
-							"#2DFF00",
+							sateliteView ? "#2DFF001A" : "#2DFF00",
 							["to-color", ["get", "color"]],
 						],
 						"fill-outline-color": "#000000",

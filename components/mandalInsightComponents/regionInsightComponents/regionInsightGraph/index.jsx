@@ -62,7 +62,7 @@ function RegionInsightGraph() {
 				if (currentDateAsDayJSObject.isAfter(dateAsADayJSObject))
 					tempArr.push({
 						name: dateAsADayJSObject.format("DD-MMM"),
-						actual: allValuesForCorrespondingDatesForCurrentDoc[index],
+						actual: Math.floor(allValuesForCorrespondingDatesForCurrentDoc[index]),
 					});
 				//Set Live Tracker
 				else if (!movedFromActualToPredictedBoolean) {

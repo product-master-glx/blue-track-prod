@@ -65,9 +65,11 @@ function RegionInsightBarChart() {
 					value: latest_summary[key],
 				});
 			});
+			const totalValue = data.reduce((sum, item) => sum + item.value, 0);
+			data.push({ name: "PBNS", value: METADATA_FOR_ORDER.running_ponds - totalValue });
 			console.log(data);
 		}
-		return data.filter((a) => a.name.toLowerCase() !== "runningbutnotstocked");
+		return data;
 	}, [BAR_CHART_TYPE, METADATA_FOR_ORDER]);
 
 	const barChartClick = (data) => {
@@ -84,44 +86,50 @@ function RegionInsightBarChart() {
 		}
 	};
 
-	const formatToTwoDecimal = (value) => value.toFixed(2);
+	const formatToTwoDecimal = (value) => value.toFixed(0);
 
 	return (
-		<ResponsiveContainer>
-			<BarChart
-				width={500}
-				height={300}
-				data={barChartData}
-				layout="vertical"
-				onClick={barChartClick}
-				style={{ cursor: "pointer" }}
-			>
-				<XAxis type="number" tick={{ fill: "white" }} />
-				<YAxis
-					dataKey="name"
-					type="category"
-					tick={{ fill: "white" }}
-					label={{
-						value: BAR_CHART_TYPE == "count" ? "" : "DoC (in days)",
-						angle: -90,
-						position: "insideLeft",
-						style: {
-							fontWeight: 600,
-							fill: "white",
-						},
-					}}
-				/>
-				<CartesianGrid strokeDasharray="3 3" />
-				<Tooltip />
-				<Legend />
-				<Bar
-					dataKey="value"
-					name="No. of Ponds"
-					fill="#8884d8"
-					formatter={formatToTwoDecimal}
-				/>
-			</BarChart>
-		</ResponsiveContainer>
+		<>
+			<ResponsiveContainer>
+				<BarChart
+					width={500}
+					height={300}
+					data={barChartData}
+					layout="vertical"
+					onClick={barChartClick}
+					style={{ cursor: "pointer" }}
+				>
+					<XAxis type="number" tick={{ fill: "white" }} />
+					<YAxis
+						dataKey="name"
+						type="category"
+						tick={{ fill: "white" }}
+						label={{
+							value: BAR_CHART_TYPE == "count" ? "" : "DoC (in days)",
+							angle: -90,
+							position: "insideLeft",
+							style: {
+								fontWeight: 600,
+								fill: "white",
+							},
+						}}
+					/>
+					<CartesianGrid strokeDasharray="3 3" />
+					<Tooltip />
+					<Legend />
+					<Bar
+						dataKey="value"
+						name="No. of Ponds"
+						fill="#8884d8"
+						formatter={formatToTwoDecimal}
+					/>
+				</BarChart>
+
+			</ResponsiveContainer>
+			<div style={{ textAlign: "left", color: "white" }}>
+				** PBNS - Pumped But Not Stocked
+			</div>
+		</>
 	);
 }
 

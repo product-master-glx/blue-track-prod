@@ -79,10 +79,10 @@ function LandingPageSummary() {
 				direction="column"
 				justifyContent="center"
 				alignItems="center"
-				spacing={2}
+				spacing={0}
 				sx={{ height: "100%" }}
-				className="w-full"
-				gap={2}
+				className="w-full h-[60%] overflow-hidden"
+				gap={0}
 			>
 				<Stack
 					direction="column"
@@ -127,6 +127,23 @@ function LandingPageSummary() {
 					spacing={2}
 					className="w-full h-[60%] overflow-hidden"
 				>
+					<Typography
+						variant="h6"
+						sx={{
+							width: "100%",
+							fontSize: "17px",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							marginTop: "-50px", 
+						}}
+						component="div"
+					>
+						<span style={{ width: "60%" }} className="block">
+							Active Acreage Distribution
+						</span>
+						
+					</Typography>
 					<ResponsivePie
 						data={summaryData.pieChartData}
 						animate={true}
