@@ -146,21 +146,25 @@ const GetRegionData = async (
 	mandalsData?.map((feature) => {
 		const currentPondCount = Object.values(feature.meta?.count_summary || {}).pop();
 		feature.meta.count_status = currentPondCount;
-		feature.meta.color = sateliteView ? `${colorGradientInsight.getColor(
-			feature.meta.total_running_acreage
-				? Math.round(
-					(feature.meta.total_running_acreage / currentHighestCountRegionInsight) *
-					100
-				) + 1
-				: 1
-		)}33` : `${colorGradientInsight.getColor(
-			feature.meta.total_running_acreage
-				? Math.round(
-					(feature.meta.total_running_acreage / currentHighestCountRegionInsight) *
-					100
-				) + 1
-				: 1
-		)}`
+		feature.meta.color = sateliteView
+			? `${colorGradientInsight.getColor(
+					feature.meta.total_running_acreage
+						? Math.round(
+								(feature.meta.total_running_acreage /
+									currentHighestCountRegionInsight) *
+									100
+						  ) + 1
+						: 1
+			  )}33`
+			: `${colorGradientInsight.getColor(
+					feature.meta.total_running_acreage
+						? Math.round(
+								(feature.meta.total_running_acreage /
+									currentHighestCountRegionInsight) *
+									100
+						  ) + 1
+						: 1
+			  )}`;
 		// console.log("feature.meta.color", feature.meta.color);
 		feature.meta.mandal = true;
 		feature.meta.village = false;
@@ -228,23 +232,25 @@ const GetRegionData = async (
 			feature.meta.count_status = currentPondCount;
 
 			feature.meta.village_slug = feature.slug;
-			feature.meta.color = sateliteView ? `${colorGradientInsight.getColor(
-				feature.meta.total_running_acreage
-					? Math.round(
-						(feature.meta.total_running_acreage /
-							currentHighestCountRegionInsight) *
-						100
-					) + 1
-					: 1
-			)}33` : `${colorGradientInsight.getColor(
-				feature.meta.total_running_acreage
-					? Math.round(
-						(feature.meta.total_running_acreage /
-							currentHighestCountRegionInsight) *
-						100
-					) + 1
-					: 1
-			)}`
+			feature.meta.color = sateliteView
+				? `${colorGradientInsight.getColor(
+						feature.meta.total_running_acreage
+							? Math.round(
+									(feature.meta.total_running_acreage /
+										currentHighestCountRegionInsight) *
+										100
+							  ) + 1
+							: 1
+				  )}33`
+				: `${colorGradientInsight.getColor(
+						feature.meta.total_running_acreage
+							? Math.round(
+									(feature.meta.total_running_acreage /
+										currentHighestCountRegionInsight) *
+										100
+							  ) + 1
+							: 1
+				  )}`;
 			feature.meta.village_name = feature.name;
 			feature.meta.mandal = false;
 			feature.meta.village = true;

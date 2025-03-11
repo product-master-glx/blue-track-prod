@@ -60,13 +60,25 @@ function RegionInsightBarChart() {
 				});
 			}
 			latest_summary_keys.map((key) => {
-				data.push({
-					name: key,
-					value: latest_summary[key],
-				});
+				if (key !== "0C-19C") {
+					data.push({
+						name: key,
+						value: latest_summary[key],
+					});
+				}
 			});
 			const totalValue = data.reduce((sum, item) => sum + item.value, 0);
-			data.push({ name: "PBNS", value: METADATA_FOR_ORDER.running_ponds - totalValue });
+			if (BAR_CHART_TYPE == "count") {
+				data.push({ name: "PBNS", value: METADATA_FOR_ORDER.running_ponds - totalValue });
+			}
+			if (BAR_CHART_TYPE == "doc") {
+				const index = data.findIndex((item) => item.name === "0-0");
+				if (index !== -1) {
+					const item = data.splice(index, 1)[0];
+					item.name = "PBNS";
+					data.push(item);
+				}
+			}
 			console.log(data);
 		}
 		return data;
@@ -124,7 +136,6 @@ function RegionInsightBarChart() {
 						formatter={formatToTwoDecimal}
 					/>
 				</BarChart>
-
 			</ResponsiveContainer>
 			<div style={{ textAlign: "left", color: "white" }}>
 				** PBNS - Pumped But Not Stocked

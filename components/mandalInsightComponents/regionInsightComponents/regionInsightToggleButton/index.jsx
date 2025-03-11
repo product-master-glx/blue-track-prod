@@ -19,10 +19,10 @@ function RegionInsightToggleButton() {
 				aria-label="text alignment"
 			>
 				<ToggleButton value="count" aria-label="Count">
-					Count
+					Shrimp Count
 				</ToggleButton>
 				<ToggleButton value="doc" aria-label="DOC">
-					DOC
+					Days of Culture
 				</ToggleButton>
 			</ToggleButtonGroup>
 		</Box>

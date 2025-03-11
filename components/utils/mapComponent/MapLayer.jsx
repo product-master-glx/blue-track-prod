@@ -1,7 +1,8 @@
 import { Layer, useMap } from "react-map-gl/maplibre";
 import {
 	boundingBoxCoordinatesToZoomAtom,
-	currentPondsToShowAccordingToCountAtom, sateliteViewAtom
+	currentPondsToShowAccordingToCountAtom,
+	sateliteViewAtom,
 } from "@/jotai/index";
 import { useAtomValue, useAtom } from "jotai";
 import { useEffect } from "react";

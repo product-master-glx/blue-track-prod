@@ -135,14 +135,13 @@ function LandingPageSummary() {
 							display: "flex",
 							alignItems: "center",
 							justifyContent: "center",
-							marginTop: "-50px", 
+							marginTop: "-50px",
 						}}
 						component="div"
 					>
 						<span style={{ width: "60%" }} className="block">
 							Active Acreage Distribution
 						</span>
-						
 					</Typography>
 					<ResponsivePie
 						data={summaryData.pieChartData}

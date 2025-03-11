@@ -18,7 +18,8 @@ import {
 	insightIDAtom,
 	geoJSONSeperatedByStatusAsKeysAtom,
 	currentOrderDataAtom,
-	userDataAtom,sateliteViewAtom
+	userDataAtom,
+	sateliteViewAtom,
 } from "../../jotai";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import GetRegionData from "@/api-handlers/region-insights-handler/get_region_data";
@@ -79,7 +80,7 @@ function RegionInsight() {
 	const SET_INSIGHT_ID_FOR_CURRENT_ORDER = useSetAtom(insightIDAtom);
 	const SET_GEOJSON_SEPERATED_BY_STATUS_AS_KEYS = useSetAtom(geoJSONSeperatedByStatusAsKeysAtom);
 	const SET_CURRENT_ORDER_DATA = useSetAtom(currentOrderDataAtom);
-    const satliteView = useAtom(sateliteViewAtom);
+	const satliteView = useAtom(sateliteViewAtom);
 	// console.log("REGION_DATA_GATHERED_FROM_LANDING_PAGE", REGION_DATA_GATHERED_FROM_LANDING_PAGE);
 	useEffect(() => {
 		SET_ORDER_ID_FOR_CURRENT_ORDER(orderId);

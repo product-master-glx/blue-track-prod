@@ -5,6 +5,10 @@ import { renderToString } from "react-dom/server";
 import { useMap } from "react-map-gl/maplibre";
 import { useNavigate } from "react-router-dom";
 
+const capitalizeFirstLetter = (string) => {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
 function TooltipHTML({ properties, coordinates }) {
 	const isLandingPage = window.location.pathname === "/";
 	const isRegionInsightPage = window.location.pathname.includes("/region-insight");
@@ -17,9 +21,24 @@ function TooltipHTML({ properties, coordinates }) {
 		const dataToShow = [];
 		if (properties?.name) {
 			dataToShow.push({
-				title: "Name",
+				title:
+					properties.mandal == undefined
+						? "Name"
+						: properties.mandal
+						? "Mandal Name"
+						: "Village Name",
 				value: properties.name,
 			});
+		}
+		if (properties.village && properties?.request_data) {
+			const data = JSON.parse(properties.request_data);
+			dataToShow.push({
+				title: "Mandal Name",
+				value: capitalizeFirstLetter(data.mandal_slug.split("-")[0]),
+			});
+		}
+		if (properties?.total_ponds !== undefined) {
+			dataToShow.push({ title: "Ponds", value: properties.total_ponds });
 		}
 		if (properties.locked) {
 			return dataToShow;
@@ -65,6 +84,10 @@ function TooltipPopup({ MAP_LAYER_ID }) {
 					? polygon(e.features[0].geometry.coordinates)
 					: multiPolygon(e.features[0].geometry.coordinates)
 			).geometry.coordinates.slice();
+			console.log(
+				"--------+++++++++++----------e.features[0]---------++++++++------------",
+				e.features[0]
+			);
 			const properties = e.features[0].properties;
 			while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
 				coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
