@@ -52,9 +52,9 @@ function TooltipHTML({ properties, coordinates }) {
 		if (isLandingPage && properties.avg_doc !== undefined) {
 			dataToShow.push({ title: "Average DoC", value: properties.avg_doc.toFixed(2) });
 		}
-		if (isRegionInsightPage) {
-			dataToShow.push({ title: "Coordinates", value: farmCentroid });
-		}
+		// if (isRegionInsightPage) {
+		// 	dataToShow.push({ title: "Coordinates", value: farmCentroid });
+		// }
 		return dataToShow;
 	}, [properties, isLandingPage, isRegionInsightPage, farmCentroid]);
 	return (

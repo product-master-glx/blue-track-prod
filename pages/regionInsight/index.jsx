@@ -1,7 +1,7 @@
 import { Box, Stack } from "@mui/material";
 import InsightMap from "@/components/mandalInsightComponents/insightComponentMap";
 import InsightSidebar from "@/components/mandalInsightComponents/insightSidebar";
-import InsightBottomBoxHandler from "@/components/mandalInsightComponents/insightBottomBoxHandler";
+// import InsightBottomBoxHandler from "@/components/mandalInsightComponents/insightBottomBoxHandler";
 import { useEffect } from "react";
 import {
 	regionDataGatheredFromLandingPageAtom,
@@ -145,7 +145,7 @@ function RegionInsight() {
 				<Stack spacing={1} display={"flex"}>
 					<InsightMap>
 						<InsightSidebar />
-						<InsightBottomBoxHandler />
+						{/* <InsightBottomBoxHandler /> */}
 					</InsightMap>
 				</Stack>
 			</Box>
