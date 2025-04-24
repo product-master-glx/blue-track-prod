@@ -29,13 +29,13 @@ function RegionInsightData() {
 				direction="row"
 				justifyContent="space-between"
 				alignItems="flex-start"
-				spacing={1}
+				spacing={1}  // Reduced from 1
 			>
 				<Box
 					component="section"
 					sx={{
-						px: 2,
-						py: 1,
+						px: 1,  // Reduced from 2
+						py: 0.5,  // Reduced from 1
 						borderRadius: 4,
 						backgroundColor: "#121A2B",
 						color: "white",
@@ -43,13 +43,12 @@ function RegionInsightData() {
 						width: "50%",
 					}}
 				>
-					<Typography variant="h6" component="div" sx={{ fontWeight: "bold" }}>
+					<Typography variant="subtitle2" component="div" sx={{ fontWeight: "bold" }}>
 						Active
 						<br />
 						Acreage
 					</Typography>
-					<Typography variant="h6" component="div">
-						{/* {Number(METADATA_FOR_ORDER?.total_running_acreage).toFixed(2)}&nbsp; */}
+					<Typography variant="subtitle2" component="div">
 						{totalRunningAcreage}&nbsp;
 						<span style={{ fontSize: "0.8rem", color: "#126bc5" }}>
 							~{percentageRunningAcreage}%
@@ -58,7 +57,7 @@ function RegionInsightData() {
 					<Typography
 						variant="subtitle2"
 						component="div"
-						sx={{ mt: 1, color: "#126bc5" }}
+						sx={{ mt: 0.5, color: "#126bc5" }}  // Reduced from 1
 					>
 						Total Acreage
 					</Typography>
@@ -69,8 +68,8 @@ function RegionInsightData() {
 				<Box
 					component="section"
 					sx={{
-						px: 2,
-						py: 1,
+						px: 1,  // Reduced from 2
+						py: 0.5,  // Reduced from 1
 						borderRadius: 4,
 						backgroundColor: "#121A2B",
 						color: "white",
@@ -78,12 +77,12 @@ function RegionInsightData() {
 						width: "50%",
 					}}
 				>
-					<Typography variant="h6" component="div" sx={{ fontWeight: "bold" }}>
+					<Typography variant="subtitle2" component="div" sx={{ fontWeight: "bold" }}>
 						Active
 						<br />
 						Ponds
 					</Typography>
-					<Typography variant="h6" component="div">
+					<Typography variant="subtitle2" component="div">
 						{METADATA_FOR_ORDER?.running_ponds ?? 0}
 						<span style={{ marginLeft: "15px", fontSize: "0.8rem", color: "#126bc5" }}>
 							~{percentageRunningPonds}%
@@ -92,7 +91,7 @@ function RegionInsightData() {
 					<Typography
 						variant="subtitle2"
 						component="div"
-						sx={{ mt: 1, color: "#126bc5" }}
+						sx={{ mt: 0.5, color: "#126bc5" }}  // Reduced from 1
 					>
 						Total Ponds
 					</Typography>
