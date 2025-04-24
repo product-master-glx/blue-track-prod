@@ -29,13 +29,13 @@ function RegionInsightData() {
 				direction="row"
 				justifyContent="space-between"
 				alignItems="flex-start"
-				spacing={1}  // Reduced from 1
+				spacing={1} // Reduced from 1
 			>
 				<Box
 					component="section"
 					sx={{
-						px: 1,  // Reduced from 2
-						py: 0.5,  // Reduced from 1
+						px: 1, // Reduced from 2
+						py: 0.5, // Reduced from 1
 						borderRadius: 4,
 						backgroundColor: "#121A2B",
 						color: "white",
@@ -57,7 +57,7 @@ function RegionInsightData() {
 					<Typography
 						variant="subtitle2"
 						component="div"
-						sx={{ mt: 0.5, color: "#126bc5" }}  // Reduced from 1
+						sx={{ mt: 0.5, color: "#126bc5" }} // Reduced from 1
 					>
 						Total Acreage
 					</Typography>
@@ -68,8 +68,8 @@ function RegionInsightData() {
 				<Box
 					component="section"
 					sx={{
-						px: 1,  // Reduced from 2
-						py: 0.5,  // Reduced from 1
+						px: 1, // Reduced from 2
+						py: 0.5, // Reduced from 1
 						borderRadius: 4,
 						backgroundColor: "#121A2B",
 						color: "white",
@@ -91,7 +91,7 @@ function RegionInsightData() {
 					<Typography
 						variant="subtitle2"
 						component="div"
-						sx={{ mt: 0.5, color: "#126bc5" }}  // Reduced from 1
+						sx={{ mt: 0.5, color: "#126bc5" }} // Reduced from 1
 					>
 						Total Ponds
 					</Typography>
