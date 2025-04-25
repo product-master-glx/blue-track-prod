@@ -11,7 +11,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
  */
 function InsightBottomDisplayBox({ children }) {
 	const [isOpen, setIsOpen] = useState(true);
-	const [GRAPH_FULL_SIZE_BOOLEAN, ] = useAtom(graphFullSizeAtom);
+	const [GRAPH_FULL_SIZE_BOOLEAN] = useAtom(graphFullSizeAtom);
 	const SET_MAP_SCROLL_WHEEL_ZOOM_BOOLEAN = useAtom(mapScrollWheelZoomAtom);
 
 	const handleToggle = () => {
