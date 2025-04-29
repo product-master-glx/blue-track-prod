@@ -17,8 +17,8 @@ export default async function userLogOutHandler(request_body) {
 			isAuthenticationRequired: false,
 			errorToast: false,
 		});
-
-		toast.success(data.message);
+        console.log("Logout response", data);
+		// toast.success(data.message);
 
 		// history.navigate("/");
 	} catch (err) {
