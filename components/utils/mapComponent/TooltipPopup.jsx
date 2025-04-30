@@ -40,6 +40,9 @@ function TooltipHTML({ properties, coordinates }) {
 		if (properties?.total_ponds !== undefined) {
 			dataToShow.push({ title: "Ponds", value: properties.total_ponds });
 		}
+		if (properties?.villages_count !== undefined) {
+			dataToShow.push({ title: "Villages", value: properties.villages_count });
+		}
 		if (properties.locked) {
 			return dataToShow;
 		}
