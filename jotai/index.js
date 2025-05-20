@@ -7,6 +7,8 @@ const selectedToggleInLandingPageSideBoxAtom = atom("summary");
 const masterGeoJSONAtom = atom(null);
 // To store the current GeoJSON object to display
 const geoJSONCurrentlyBeingDisplayedAtom = atom(null);
+// To store the centroid GeoJSON object to display
+const centroidGeoJsonAtom = atom(null);
 // To store the GeoJSON according to the status i.e. Harvested, Running, Empty, Recently Pumped
 const geoJSONSeperatedByStatusAsKeysAtom = atom(null);
 // Not using
@@ -163,6 +165,7 @@ export {
 	currentSelectedStatusOnRegionInsightAtom,
 	unitOfParametersAtom,
 	boundingBoxCoordinatesToZoomAtom,
+	centroidGeoJsonAtom,
 };
 
 // For login Otp Validity

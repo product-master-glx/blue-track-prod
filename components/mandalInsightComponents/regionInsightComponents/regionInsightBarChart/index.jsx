@@ -13,6 +13,7 @@ import {
 	barChartTypeAtom,
 	currentLineChartDropdownValueAtom,
 	metaDataForOrderAtom,
+	currentOrderDataAtom,
 } from "../../../../jotai";
 import { useMemo } from "react";
 
@@ -28,7 +29,7 @@ function RegionInsightBarChart() {
 	const BAR_CHART_TYPE = useAtomValue(barChartTypeAtom);
 	const METADATA_FOR_ORDER = useAtomValue(metaDataForOrderAtom);
 	const SET_CURRENT_LINE_CHART_DROPDOWN_VALUE = useSetAtom(currentLineChartDropdownValueAtom);
-
+	const current_aoi = useAtomValue(currentOrderDataAtom);
 	const barChartData = useMemo(() => {
 		const data = [];
 		if (METADATA_FOR_ORDER && METADATA_FOR_ORDER.latest_summary) {
@@ -137,8 +138,40 @@ function RegionInsightBarChart() {
 					/>
 				</BarChart>
 			</ResponsiveContainer>
-			<div style={{ textAlign: "left", color: "white" }}>
-				** PBNS - Pumped But Not Stocked
+			<div style={{ display: "flex", alignItems: "center", color: "white" }}>
+				<span>** PBNS - Pumped But Not Stocked</span>
+				{current_aoi.villageId && (
+					<div style={{ display: "flex", gap: 16 }}>
+						<div style={{ display: "flex", alignItems: "center" }}>
+							<span
+								style={{
+									display: "inline-block",
+									width: 16,
+									height: 16,
+									borderRadius: "50%",
+									background: "#1E90FF",
+									border: "1px solid #000",
+									marginRight: 6,
+								}}
+							/>
+							<span>Shrimp</span>
+						</div>
+						<div style={{ display: "flex", alignItems: "center" }}>
+							<span
+								style={{
+									display: "inline-block",
+									width: 16,
+									height: 16,
+									borderRadius: "50%",
+									background: "#32CD32",
+									border: "1px solid #000",
+									marginRight: 6,
+								}}
+							/>
+							<span>Non Shrimp</span>
+						</div>
+					</div>
+				)}
 			</div>
 		</>
 	);

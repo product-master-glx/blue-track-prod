@@ -233,6 +233,75 @@ function MapLayer({ MAP_LAYER_ID, MAP_SOURCE_ID }) {
 					},
 				}}
 			/>
+
+			{/* <Layer
+				{...{
+					id: MAP_LAYER_ID + "_ponds",
+					type: "fill",
+					source: MAP_SOURCE_ID,
+					filter: ["==", ["get", "pond"], true], // Filter for ponds
+					paint: {
+						"fill-color": [
+							"case",
+							["==", ["get", "pond_type"], 1], // Pond type 1
+							sateliteView ? "#1E90FF4D" : "#1E90FF", // Blue for type 1
+							["==", ["get", "pond_type"], 2], // Pond type 2
+							sateliteView ? "#32CD324D" : "#32CD32", // Green for type 2
+							"#FFD700", // Default color (Yellow)
+						],
+					},
+				}}
+			/> */}
+
+			{MAP_SOURCE_ID.includes("centroid") && (
+				<Layer
+					{...{
+						id: MAP_LAYER_ID + "_centroid",
+						type: "circle",
+						source: MAP_SOURCE_ID,
+						paint: {
+							"circle-radius": 6,
+							"circle-color": [
+								"case",
+								["==", ["get", "pond_type"], 1],
+								sateliteView ? "#1E90FF" : "#1E90FF",
+								["==", ["get", "pond_type"], 2],
+								sateliteView ? "#32CD32" : "#32CD32",
+								"#FFD700",
+							],
+							"circle-stroke-color": "#000",
+							"circle-stroke-width": 1,
+						},
+					}}
+				/>
+			)}
+
+			{/* <Layer
+				{...{
+					id: MAP_LAYER_ID + "_ponds_outline",
+					type: "line",
+					source: MAP_SOURCE_ID,
+					filter: ["==", ["get", "pond"], true], // Filter for ponds
+					paint: {
+						"line-color": [
+							"case",
+							["==", ["get", "pond_type"], 1], // Pond type 1
+							"#00008B", // Dark blue for type 1
+							["==", ["get", "pond_type"], 2], // Pond type 2
+							"#006400", // Dark green for type 2
+							"#000000", // Default color (Black)
+						],
+						"line-opacity": [
+							"case",
+							["==", ["get", "pond_type"], 1], // Pond type 1
+							sateliteView ? 0.3 : 0, // Opacity based on sateliteView
+							["==", ["get", "pond_type"], 2], // Pond type 2
+							sateliteView ? 0.3 : 0, // Opacity based on sateliteView
+							0, // Default opacity
+						],
+					},
+				}}
+			/> */}
 		</>
 	);
 }

@@ -20,6 +20,7 @@ import {
 	currentOrderDataAtom,
 	userDataAtom,
 	sateliteViewAtom,
+	centroidGeoJsonAtom,
 } from "../../jotai";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import GetRegionData from "@/api-handlers/region-insights-handler/get_region_data";
@@ -72,6 +73,8 @@ function RegionInsight() {
 	const [MASTER_GEOJSON, SET_MASTER_GEO_JSON] = useAtom(masterGeoJSONAtom);
 	// To set the current geo json object to show
 	const SET_GEOJSON_CURRENTLY_BEING_DISPLAYED = useSetAtom(geoJSONCurrentlyBeingDisplayedAtom);
+	// To set the centroid geo json object to show
+	const SET_CENTROID_GEOJSON = useSetAtom(centroidGeoJsonAtom);
 	// To set the current fsm data for the order
 	const SET_FSM_DATA_FOR_CURRENT_ORDER = useSetAtom(FSMDataForCurrentOrderAtom);
 	// To set the current fsm data for the order
@@ -103,7 +106,8 @@ function RegionInsight() {
 			SET_MAP_CENTER_ATOM,
 			SET_METADATA_FOR_ORDER,
 			SET_CURRENT_ORDER_DATA,
-			satliteView
+			satliteView,
+			SET_CENTROID_GEOJSON
 			// SET_FSM_DATA_FOR_CURRENT_ORDER,
 			// SET_WQA_DATA_FOR_CURRENT_ORDER
 		);
