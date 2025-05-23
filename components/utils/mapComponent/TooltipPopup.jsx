@@ -1,6 +1,5 @@
 import { useMemo, useEffect, useRef, useCallback } from "react";
-import { centroid, polygon } from "@turf/turf";
-//multiPolygon
+import { centroid, polygon , multiPolygon } from "@turf/turf";
 import { Popup } from "maplibre-gl";
 import { renderToString } from "react-dom/server";
 import { useMap } from "react-map-gl/maplibre";
@@ -112,8 +111,7 @@ function TooltipPopup({ MAP_LAYER_ID }) {
 			const coordinates = centroid(
 				geometryType === "polygon"
 					? polygon(e.features[0].geometry.coordinates)
-					: // : multiPolygon(e.features[0].geometry.coordinates)
-					  polygon(e.features[0].geometry.coordinates)
+					: multiPolygon(e.features[0].geometry.coordinates)
 			).geometry.coordinates.slice();
 			console.log(
 				"--------+++++++++++----------e.features[0]---------++++++++------------",
@@ -164,13 +162,13 @@ function TooltipPopup({ MAP_LAYER_ID }) {
 			if (geometry.type === "Polygon") {
 				rings = geometry.coordinates;
 			}
-			// else if (geometry.type === "MultiPolygon") {
-			// 	// Flatten all rings from all polygons
-			// 	geometry.coordinates.forEach(polygonRings => {
-			// 		rings.push(...polygonRings);
-			// 	});
+			else if (geometry.type === "MultiPolygon") {
+				// Flatten all rings from all polygons
+				geometry.coordinates.forEach(polygonRings => {
+					rings.push(...polygonRings);
+				});
 
-			// }
+			}
 			else {
 				throw new Error("Unsupported geometry type: " + geometry.type);
 			}
