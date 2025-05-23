@@ -1,5 +1,5 @@
 import { useMemo, useEffect, useRef, useCallback } from "react";
-import { centroid, polygon , multiPolygon } from "@turf/turf";
+import { centroid, polygon, multiPolygon } from "@turf/turf";
 import { Popup } from "maplibre-gl";
 import { renderToString } from "react-dom/server";
 import { useMap } from "react-map-gl/maplibre";
@@ -161,15 +161,12 @@ function TooltipPopup({ MAP_LAYER_ID }) {
 
 			if (geometry.type === "Polygon") {
 				rings = geometry.coordinates;
-			}
-			else if (geometry.type === "MultiPolygon") {
+			} else if (geometry.type === "MultiPolygon") {
 				// Flatten all rings from all polygons
-				geometry.coordinates.forEach(polygonRings => {
+				geometry.coordinates.forEach((polygonRings) => {
 					rings.push(...polygonRings);
 				});
-
-			}
-			else {
+			} else {
 				throw new Error("Unsupported geometry type: " + geometry.type);
 			}
 
