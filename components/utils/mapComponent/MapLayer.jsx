@@ -7,7 +7,6 @@ import {
 import { useAtomValue, useAtom } from "jotai";
 import { useEffect, useState } from "react";
 
-
 const pondTypeMap = {
 	1: "Shrimp",
 	2: "Non-Shrimp",
