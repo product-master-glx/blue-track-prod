@@ -19,8 +19,8 @@ export default {
 	signedUp: azureDevAPIDomain + "/signup",
 	loggedOut: azureDevAPIDomain + "/logout",
 	placeOrder: awsAPIDomain + "/place-order",
-	downloadFile : azureAPIDomain +"/download_file",
-	getAllAnnexures : azureDevAPIDomain +"/list_files",
+	downloadFile: azureDevAPIDomain + "/download_file",
+	getAllAnnexures: azureDevAPIDomain + "/list_files",
 	blueBot: {
 		getQuestions: azureDevAPIDomain + "/get_bot_questions?",
 		getAnswers: azureDevAPIDomain + "/get_bot_answer",
