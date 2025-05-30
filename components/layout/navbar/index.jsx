@@ -9,6 +9,7 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import FileDownloadSelector from "@/components/downloadAnnexures";
 import {
 	cookiesValuesAtom,
 	currentSelectedPondDateAtom,
@@ -133,7 +134,7 @@ function Navbar() {
 							</Button>
 						</Box>
 					)}
-
+					<FileDownloadSelector />
 					<Box sx={{ flexGrow: 0 }}>
 						<Tooltip title="Open settings">
 							<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
