@@ -46,9 +46,11 @@ function PondPopup({ feature, onClose }) {
 				<div>
 					<strong>Acreage:</strong> {acreage} acres
 				</div>
-				{pondType === "Shrimp" && <div>
-					<strong>Latest DOC:</strong> {doc} 
-				</div>}
+				{pondType === "Shrimp" && (
+					<div>
+						<strong>Latest DOC:</strong> {doc}
+					</div>
+				)}
 				<div>
 					<a
 						href={gmapsUrl}
