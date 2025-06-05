@@ -16,6 +16,7 @@ function PondPopup({ feature, onClose }) {
 	const { properties } = feature;
 
 	const acreage = properties.acreage?.toFixed(2);
+	const doc = properties.doc || 0;
 	console.log("lmao", acreage);
 	const pondType = pondTypeMap[properties.pond_type] || `Type ${properties.pond_type}`;
 	const centroid = JSON.parse(properties.centroid);
@@ -45,6 +46,9 @@ function PondPopup({ feature, onClose }) {
 				<div>
 					<strong>Acreage:</strong> {acreage} acres
 				</div>
+				{pondType === "Shrimp" && <div>
+					<strong>Latest DOC:</strong> {doc} 
+				</div>}
 				<div>
 					<a
 						href={gmapsUrl}
