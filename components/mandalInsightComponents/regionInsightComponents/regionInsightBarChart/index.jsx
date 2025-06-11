@@ -138,7 +138,14 @@ function RegionInsightBarChart() {
 					/>
 				</BarChart>
 			</ResponsiveContainer>
-			<div style={{ display: "flex", alignItems: "center", color: "white" , flexDirection:"column"}}>
+			<div
+				style={{
+					display: "flex",
+					alignItems: "center",
+					color: "white",
+					flexDirection: "column",
+				}}
+			>
 				<span>** PBNS - Pumped But Not Stocked</span>
 				{current_aoi.villageId && (
 					<div style={{ display: "flex", gap: 8 }}>
