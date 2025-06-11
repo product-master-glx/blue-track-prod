@@ -121,11 +121,13 @@ function MapLayer({ MAP_LAYER_ID, MAP_SOURCE_ID }) {
 							"circle-radius": 6,
 							"circle-color": [
 								"case",
-								["==", ["get", "pond_type"], 1],
-								sateliteView ? "#1E90FF" : "#1E90FF",
-								["==", ["get", "pond_type"], 2],
-								sateliteView ? "#32CD32" : "#32CD32",
-								"#FFD700",
+								["all",["==", ["get", "pond_type"], 1],["==", ["get", "status_current"], 1]],
+							    "#1E90FF",
+								["all",["==", ["get", "pond_type"], 1],["==", ["get", "status_current"], 2]],
+						        "#FF0000",
+								["==",["get", "pond_type"], 2],
+								"#32CD32",
+								"#FFD700"
 							],
 							"circle-stroke-color": "#000",
 							"circle-stroke-width": 1,

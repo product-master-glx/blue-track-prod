@@ -138,10 +138,10 @@ function RegionInsightBarChart() {
 					/>
 				</BarChart>
 			</ResponsiveContainer>
-			<div style={{ display: "flex", alignItems: "center", color: "white" }}>
+			<div style={{ display: "flex", alignItems: "center", color: "white" , flexDirection:"column"}}>
 				<span>** PBNS - Pumped But Not Stocked</span>
 				{current_aoi.villageId && (
-					<div style={{ display: "flex", gap: 16 }}>
+					<div style={{ display: "flex", gap: 8 }}>
 						<div style={{ display: "flex", alignItems: "center" }}>
 							<span
 								style={{
@@ -156,6 +156,21 @@ function RegionInsightBarChart() {
 							/>
 							<span>Shrimp</span>
 						</div>
+						<div style={{ display: "flex", alignItems: "center" }}>
+							<span
+								style={{
+									display: "inline-block",
+									width: 16,
+									height: 16,
+									borderRadius: "50%",
+									background: "#FF0000", // red
+									border: "1px solid #000",
+									marginRight: 6,
+								}}
+							/>
+							<span>Inactive Shrimp</span>
+						</div>
+
 						<div style={{ display: "flex", alignItems: "center" }}>
 							<span
 								style={{
