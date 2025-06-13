@@ -3,14 +3,14 @@ import request_handler from "../request.handler";
 import * as turf from "@turf/turf";
 import { getDefaultStore } from "jotai";
 import {
-	boundingBoxCoordinatesToZoomAtom,
+	// boundingBoxCoordinatesToZoomAtom,
 	currentHighestCountRegionInsightAtom,
 	currentOrderDataAtom,
 	geoJSONCurrentlyBeingDisplayedAtom,
 	metaDataForOrderAtom,
 	showLoadingScreenAtom,
 } from "@/jotai/index";
-import maplibregl from "maplibre-gl";
+// import maplibregl from "maplibre-gl";
 import { colorGradientInsight } from "@/constants/index";
 
 // const MAXLIMITFORPONDS = 5000;
@@ -182,8 +182,9 @@ const GetRegionData = async (
 
 	const coordinateArray = [...mandalsData].map((mandal) => JSON.parse(mandal.polygon));
 
-	let boundingBox, bigBbox;
-	let bigBboxPolygon;
+	let boundingBox;
+	// bigBbox;
+	// let bigBboxPolygon;
 
 	if (!data) {
 		boundingBox = turf.polygon(JSON.parse(data.farmAndPondInfo.aoi.polygon).coordinates);
@@ -198,20 +199,22 @@ const GetRegionData = async (
 			])
 		);
 
+		console.log("allcoordinates",allCoordinates)
+
 		// Calculate one big bounding box that encompasses all coordinates
-		bigBbox = turf.bbox({
-			type: "FeatureCollection",
-			features: allCoordinates.map((coord) => ({
-				type: "Feature",
-				geometry: {
-					type: "Point",
-					coordinates: coord,
-				},
-			})),
-		});
+		// bigBbox = turf.bbox({
+		// 	type: "FeatureCollection",
+		// 	features: allCoordinates.map((coord) => ({
+		// 		type: "Feature",
+		// 		geometry: {
+		// 			type: "Point",
+		// 			coordinates: coord,
+		// 		},
+		// 	})),
+		// });
 
 		// Optionally, convert the bbox to a polygon
-		bigBboxPolygon = turf.bboxPolygon(bigBbox);
+		// bigBboxPolygon = turf.bboxPolygon(bigBbox);
 	}
 
 	finalGJSON.features = mandalsData;
@@ -286,22 +289,23 @@ const GetRegionData = async (
 					[bbox.bbox[2], bbox.bbox[3]],
 				])
 			);
+			console.log("allCoordinates",allCoordinates)
 
 			// Calculate one big bounding box that encompasses all coordinates
-			const villageBigBbox = turf.bbox({
-				type: "FeatureCollection",
-				features: allCoordinates.map((coord) => ({
-					type: "Feature",
-					geometry: {
-						type: "Point",
-						coordinates: coord,
-					},
-				})),
-			});
+			// const villageBigBbox = turf.bbox({
+			// 	type: "FeatureCollection",
+			// 	features: allCoordinates.map((coord) => ({
+			// 		type: "Feature",
+			// 		geometry: {
+			// 			type: "Point",
+			// 			coordinates: coord,
+			// 		},
+			// 	})),
+			// });
 
 			// Optionally, convert the bbox to a polygon
 			// villageBigBboxPolygon = turf.bboxPolygon(bigBbox);
-			bigBboxPolygon = turf.bboxPolygon(villageBigBbox);
+			// bigBboxPolygon = turf.bboxPolygon(villageBigBbox);
 		}
 		finalGJSON.features = [...finalGJSON.features, ...villagesData];
 	}
@@ -454,10 +458,32 @@ const GetRegionData = async (
 	};
 	SET_GEOJSON_CURRENTLY_BEING_DISPLAYED(geoJson);
 
-	const centroid = turf.centroid(bigBboxPolygon);
-	console.log(centroid, "centroid");
+	// const centroid = turf.centroid(bigBboxPolygon);
+
+	const polygonString = aoiDetails.polygon; // This is the string you posted
+	const polygon = JSON.parse(polygonString);
+
+	// 2. Wrap it in a GeoJSON Feature
+	const polygonFeature = {
+		type: "Feature",
+		geometry: polygon,
+		properties: {},
+	};
+
+	// 3. Compute the centroid
+	const centroid = turf.centroid(polygonFeature);
+
+	console.log("CENTROID:", centroid.geometry.coordinates);
+	console.log("Features count:", geoJson.features.length);
+	console.log("First feature coords:", geoJson.features[0]?.geometry?.coordinates);
+
+	// console.log(centroid, "centroid");
 	// Zoom in to the coordinates
-	SET_MAP_CENTER_ATOM([centroid.geometry.coordinates[0], centroid.geometry.coordinates[1]]);
+	SET_MAP_CENTER_ATOM([
+		Number(centroid.geometry.coordinates[0]), // Ensure number type
+		Number(centroid.geometry.coordinates[1]),
+	]);
+
 	console.log(finalGJSON, "MJ");
 	// Set the meta data
 	SET_METADATA_FOR_ORDER(metaData);
@@ -472,12 +498,12 @@ const GetRegionData = async (
 		villageId: data.villageId,
 	});
 
-	const bounds = new maplibregl.LngLatBounds([
-		[bigBboxPolygon.bbox[0], bigBboxPolygon.bbox[1]],
-		[bigBboxPolygon.bbox[2], bigBboxPolygon.bbox[3]],
-	]);
+	// const bounds = new maplibregl.LngLatBounds([
+	// 	[bigBboxPolygon.bbox[0], bigBboxPolygon.bbox[1]],
+	// 	[bigBboxPolygon.bbox[2], bigBboxPolygon.bbox[3]],
+	// ]);
 
-	store.set(boundingBoxCoordinatesToZoomAtom, bounds);
+	// store.set(boundingBoxCoordinatesToZoomAtom, bounds);
 
 	store.set(showLoadingScreenAtom, false);
 };

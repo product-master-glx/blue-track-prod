@@ -3,11 +3,12 @@ import { Source, Layer, Map } from "react-map-gl/maplibre";
 import MapGradientLegend from "./mapGradientLegend";
 import ChangeMapView from "./changeMapView";
 import MapGeocoder from "./MapGeocoder";
-import { mapCenterAtom, mapZoomAtom, sateliteViewAtom } from "@/jotai/index";
-import { useAtomValue, useAtom } from "jotai";
+import { mapCenterAtom, mapZoomAtom, sateliteViewAtom, mapRefAtom } from "@/jotai/index";
+import { useAtomValue, useAtom, useSetAtom } from "jotai";
 import "maplibre-gl/dist/maplibre-gl.css";
 import TooltipPopup from "./TooltipPopup";
 import Toggle from "./Toggle";
+import { useRef } from "react";
 
 function ReusableMapComponent({
 	center,
@@ -27,14 +28,31 @@ function ReusableMapComponent({
 	const MAP_ZOOM_ATOM = useAtomValue(mapZoomAtom);
 	const MAP_CENTER_ATOM = useAtomValue(mapCenterAtom);
 	const [sateliteView] = useAtom(sateliteViewAtom);
+	const setMapRef = useSetAtom(mapRefAtom);
+	const setZoom = useSetAtom(mapZoomAtom);
+	const mapWrapperRef = useRef(null);
+	console.log("VENKAT");
+	const handleMapLoad = () => {
+		if (mapWrapperRef.current) {
+			console.log("logg");
+			const mapInstance = mapWrapperRef.current.getMap();
+			console.log("mapInstance", mapInstance.loaded());
+			const zoom = mapInstance.getZoom();
+			console.log("zoom in reusable", zoom);
+			setZoom(zoom);
+			setMapRef(mapInstance); // ✅ Sets actual MapLibre map object
+		}
+	};
 	return (
 		<>
 			<Map
+				ref={mapWrapperRef}
 				initialViewState={{
 					longitude: MAP_CENTER_ATOM[0],
 					latitude: MAP_CENTER_ATOM[1],
 					zoom: MAP_ZOOM_ATOM,
 				}}
+				onLoad={handleMapLoad}
 				mapStyle={
 					sateliteView
 						? `https://api.maptiler.com/maps/satellite/style.json?key=seVNzl83FrbO4O11rjo1`

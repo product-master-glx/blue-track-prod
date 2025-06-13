@@ -1,6 +1,8 @@
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
+const mapRefAtom = atom(null);
+
 // Selected tab for the landing page sidebox either "Order" or  "Graph"
 const selectedToggleInLandingPageSideBoxAtom = atom("summary");
 // To store the master data for the order insights
@@ -166,6 +168,7 @@ export {
 	unitOfParametersAtom,
 	boundingBoxCoordinatesToZoomAtom,
 	centroidGeoJsonAtom,
+	mapRefAtom,
 };
 
 // For login Otp Validity

@@ -26,13 +26,14 @@ function LandingPageMapContainer() {
 		});
 		return finalPolygon?.geometry?.coordinates?.[0];
 	}, [ALL_ORDER_DATA]);
-
+	//turnedtooriginal
 	useEffect(() => {
 		const map = mapRef.current?.getMap();
 		if (map && boundingBoxCoordinatesToZoom) {
 			map.fitBounds(boundingBoxCoordinatesToZoom, { padding: 20 });
 		}
 	}, [boundingBoxCoordinatesToZoom]);
+	//------------------------
 
 	const maxTotalActiveAcreage = useMemo(() => {
 		return (

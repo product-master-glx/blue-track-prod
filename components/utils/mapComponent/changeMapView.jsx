@@ -1,24 +1,50 @@
 import { useMap } from "react-map-gl/maplibre";
 import { useEffect } from "react";
+import { mapZoomAtom } from "@/jotai/index";
+import { useSetAtom } from "jotai";
 
-/**
- * This function sets the center and zoom for the map using the hook
- */
-function ChangeView({
-	center, //Center to zoom in on map
-	zoom, // Zoom in number
-}) {
+function ChangeView({ center }) {
 	const { current: map } = useMap();
+	const setMapZoom = useSetAtom(mapZoomAtom);
 
 	useEffect(() => {
-		if (map) {
+		if (!map) return;
+
+		// Update center while preserving current zoom
+		const updateCenter = () => {
+			const currentZoom = map.getZoom();
+			console.log("Updating center (keeping zoom at", currentZoom);
+
 			map.flyTo({
-				center,
-				zoom,
+				center: [Number(center[0]), Number(center[1])],
+				zoom: currentZoom,
 				essential: true,
+				duration: 1000,
+			});
+		};
+
+		// Sync zoom changes to global state
+		const handleZoomEnd = () => {
+			const newZoom = map.getZoom();
+			console.log("Zoom changed to:", newZoom);
+			setMapZoom(newZoom);
+		};
+
+		if (map.loaded()) {
+			updateCenter();
+			map.on("zoomend", handleZoomEnd); // Listen for zoom changes
+		} else {
+			map.once("load", () => {
+				updateCenter();
+				map.on("zoomend", handleZoomEnd);
 			});
 		}
-	}, [map, center, zoom]);
+
+		// Cleanup
+		return () => {
+			map.off("zoomend", handleZoomEnd);
+		};
+	}, [map, center, setMapZoom]);
 
 	return null;
 }
