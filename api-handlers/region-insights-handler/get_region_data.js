@@ -199,7 +199,7 @@ const GetRegionData = async (
 			])
 		);
 
-		console.log("allcoordinates",allCoordinates)
+		console.log("allcoordinates", allCoordinates);
 
 		// Calculate one big bounding box that encompasses all coordinates
 		// bigBbox = turf.bbox({
@@ -289,7 +289,7 @@ const GetRegionData = async (
 					[bbox.bbox[2], bbox.bbox[3]],
 				])
 			);
-			console.log("allCoordinates",allCoordinates)
+			console.log("allCoordinates", allCoordinates);
 
 			// Calculate one big bounding box that encompasses all coordinates
 			// const villageBigBbox = turf.bbox({
