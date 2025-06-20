@@ -30,10 +30,10 @@ function TooltipHTML({ properties, coordinates }) {
 					properties.mandal == undefined
 						? "Name"
 						: properties.mandal
-						? "Mandal Name"
-						: properties.pond
-						? "Name"
-						: "Village Name",
+							? "Mandal Name"
+							: properties.pond
+								? "Name"
+								: "Village Name",
 				value: properties.name,
 			});
 		}
@@ -233,10 +233,33 @@ function TooltipPopup({ MAP_LAYER_ID }) {
 		[navigate]
 	);
 
+	// useEffect(() => {
+	// 	if (map && popupRef.current) {
+	// 		const popup = new Popup({ closeButton: false, closeOnClick: false });
+	// 		map.on("mouseenter", MAP_LAYER_ID, (e) => {
+	// 			map.getCanvas().style.cursor = "pointer";
+	// 			handlePopupDisplay(e, popup);
+	// 		});
+	// 		map.on("mouseleave", MAP_LAYER_ID, () => {
+	// 			map.getCanvas().style.cursor = "";
+	// 			popup.remove();
+	// 		});
+	// 		map.on("click", MAP_LAYER_ID, handleFeatureClick);
+	// 		popupRef.current = false;
+
+	// 		return () => {
+	// 			map.off("mouseenter", MAP_LAYER_ID);
+	// 			map.off("mouseleave", MAP_LAYER_ID);
+	// 			map.off("click", MAP_LAYER_ID);
+	// 			popup.remove();
+	// 		};
+	// 	}
+	// }, [map, MAP_LAYER_ID, handlePopupDisplay, handleFeatureClick]);
+
 	useEffect(() => {
 		if (map && popupRef.current) {
 			const popup = new Popup({ closeButton: false, closeOnClick: false });
-			map.on("mouseenter", MAP_LAYER_ID, (e) => {
+			map.on("mousemove", MAP_LAYER_ID, (e) => {
 				map.getCanvas().style.cursor = "pointer";
 				handlePopupDisplay(e, popup);
 			});
@@ -248,7 +271,7 @@ function TooltipPopup({ MAP_LAYER_ID }) {
 			popupRef.current = false;
 
 			return () => {
-				map.off("mouseenter", MAP_LAYER_ID);
+				map.off("mousemove", MAP_LAYER_ID);
 				map.off("mouseleave", MAP_LAYER_ID);
 				map.off("click", MAP_LAYER_ID);
 				popup.remove();
