@@ -30,10 +30,10 @@ function TooltipHTML({ properties, coordinates }) {
 					properties.mandal == undefined
 						? "Name"
 						: properties.mandal
-							? "Mandal Name"
-							: properties.pond
-								? "Name"
-								: "Village Name",
+						? "Mandal Name"
+						: properties.pond
+						? "Name"
+						: "Village Name",
 				value: properties.name,
 			});
 		}
