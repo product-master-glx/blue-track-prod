@@ -13,8 +13,6 @@ function ChangeView({ center }) {
 		// Update center while preserving current zoom
 		const updateCenter = () => {
 			const currentZoom = map.getZoom();
-			console.log("Updating center (keeping zoom at", currentZoom);
-
 			map.flyTo({
 				center: [Number(center[0]), Number(center[1])],
 				zoom: currentZoom,
@@ -26,7 +24,6 @@ function ChangeView({ center }) {
 		// Sync zoom changes to global state
 		const handleZoomEnd = () => {
 			const newZoom = map.getZoom();
-			console.log("Zoom changed to:", newZoom);
 			setMapZoom(newZoom);
 		};
 

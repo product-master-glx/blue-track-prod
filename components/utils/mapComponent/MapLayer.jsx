@@ -1,9 +1,5 @@
 import { Layer, useMap, Popup } from "react-map-gl/maplibre";
-import {
-	boundingBoxCoordinatesToZoomAtom,
-	currentPondsToShowAccordingToCountAtom,
-	sateliteViewAtom,
-} from "@/jotai/index";
+import { currentPondsToShowAccordingToCountAtom, sateliteViewAtom } from "@/jotai/index";
 import { useAtomValue, useAtom } from "jotai";
 import { useEffect, useState } from "react";
 
@@ -17,7 +13,6 @@ function PondPopup({ feature, onClose }) {
 
 	const acreage = properties.acreage?.toFixed(2);
 	const doc = properties.doc || 0;
-	console.log("lmao", acreage);
 	const pondType = pondTypeMap[properties.pond_type] || `Type ${properties.pond_type}`;
 	const centroid = JSON.parse(properties.centroid);
 	const [lng, lat] = centroid;
@@ -30,16 +25,18 @@ function PondPopup({ feature, onClose }) {
 			latitude={lat}
 			onClose={onClose}
 			closeOnClick={false}
+			closeButton={true}
 			maxWidth="300px"
 		>
-			<div
+			{/* <div
 				// onMouseEnter={() => setIsPopupHovered(true)}
 				// onMouseLeave={() => {
 				// 	setIsPopupHovered(false);
 				// 	onClose();
 				// }}
 				className="text-sm space-y-2 text-black"
-			>
+			> */}
+			<div className="relative text-sm space-y-2 text-black mapboxgl-popup">
 				<div>
 					<strong>Pond Type:</strong> {pondType}
 				</div>
@@ -56,7 +53,7 @@ function PondPopup({ feature, onClose }) {
 						href={gmapsUrl}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="inline-block mt-2 px-3 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 hover:text-white"
+						className="inline-block mt-2 px-3 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700"
 					>
 						Open in Google Maps
 					</a>
@@ -67,46 +64,65 @@ function PondPopup({ feature, onClose }) {
 }
 function MapLayer({ MAP_LAYER_ID, MAP_SOURCE_ID }) {
 	const { current: map } = useMap();
-	const boundingBoxCoordinatesToZoom = useAtomValue(boundingBoxCoordinatesToZoomAtom);
 	const CURRENT_PONDS_TO_SHOW_VALUE = useAtomValue(currentPondsToShowAccordingToCountAtom);
 	const [sateliteView] = useAtom(sateliteViewAtom);
 	const [hoveredFeature, setHoveredFeature] = useState(null);
+	const [selectedFeature, setSelectedFeature] = useState(null);
 	// const [isPopupHovered, setIsPopupHovered] = useState(false);
 
-	console.log("CURRENT_PONDS_TO_SHOW_VALUE", CURRENT_PONDS_TO_SHOW_VALUE);
-	console.log("map layer id in maplayer comp", MAP_LAYER_ID);
 	useEffect(() => {
-		if (map && boundingBoxCoordinatesToZoom) {
-			map.fitBounds(boundingBoxCoordinatesToZoom, {
-				animate: false,
-				maxZoom: 9,
-				minZoom: 3,
-			});
-		}
+		if (!map) return;
 
-		map.on("mousemove", "ponds-polygons_centroids_centroid", (e) => {
-			console.log("its triggered");
-			if (e.features.length > 0) {
-				const pondFeature = e.features[0];
-				// Your hover logic for pond here, e.g. show popup or highlight
-				console.log("Hover pond:", pondFeature);
+		const handleMouseMove = (e) => {
+			if (e.features.length > 0 && !selectedFeature) {
 				setHoveredFeature(e.features[0]);
 			}
-		});
+		};
 
-		map.on("mouseleave", "ponds-polygons_centroids_centroid", () => {
-			// Remove pond hover effect / popup here
-			// setHoveredFeature(null);
-		});
-	}, [map, boundingBoxCoordinatesToZoom]);
+		const handleMouseLeave = () => {
+			if (!selectedFeature) {
+				setHoveredFeature(null);
+			}
+		};
+
+		const handleClick = (e) => {
+			if (e.features.length > 0) {
+				setSelectedFeature(e.features[0]);
+				setHoveredFeature(null);
+			}
+		};
+
+		const handleMapClickOutside = (e) => {
+			if (selectedFeature !== null) {
+				// Check if click was outside any features (e.g., on map background)
+				if (!e.originalEvent.target.closest(".mapboxgl-popup")) {
+					setSelectedFeature(null);
+				}
+			}
+		};
+
+		map.on("mousemove", "ponds-polygons_centroids_centroid", handleMouseMove);
+		map.on("mouseleave", "ponds-polygons_centroids_centroid", handleMouseLeave);
+		map.on("click", "ponds-polygons_centroids_centroid", handleClick);
+		map.on("click", handleMapClickOutside); // Global map click
+
+		return () => {
+			map.off("mousemove", "ponds-polygons_centroids_centroid", handleMouseMove);
+			map.off("mouseleave", "ponds-polygons_centroids_centroid", handleMouseLeave);
+			map.off("click", "ponds-polygons_centroids_centroid", handleClick);
+			map.off("click", handleMapClickOutside);
+		};
+	}, [map, selectedFeature]);
 
 	return (
 		<>
-			{hoveredFeature && (
+			{(selectedFeature || hoveredFeature) && (
 				<PondPopup
-					feature={hoveredFeature}
-					onClose={() => setHoveredFeature(null)}
-					// setIsPopupHovered={setIsPopupHovered}
+					feature={selectedFeature || hoveredFeature}
+					onClose={() => {
+						setSelectedFeature(null);
+						setHoveredFeature(null);
+					}}
 				/>
 			)}
 
@@ -259,8 +275,20 @@ function MapLayer({ MAP_LAYER_ID, MAP_SOURCE_ID }) {
 					paint: {
 						"line-color": [
 							"case",
-							["==", ["get", "current_selected"], true],
+							[
+								"all",
+								["==", ["get", "current_selected"], true],
+								["==", ["get", "mandal"], true],
+							],
 							"#ff0000",
+
+							[
+								"all",
+								["==", ["get", "current_selected"], true],
+								["==", ["get", "village"], true],
+							],
+							"#0000ff",
+
 							"#000000",
 						],
 						"line-width": [

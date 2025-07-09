@@ -114,8 +114,6 @@ const GetRegionData = async (
 		}
 	}
 
-	console.log("request_data", request_data);
-
 	// "district_slug": "east-godavari-bcd0f51b-b2f6-46fa-bc6d-af0c6a86c6a5",
 	// "mandal_slug":"maredumilli-368c2451-b38a-430d-974c-1e14601ff9a7"
 	// 		"village_slug": "elivada-9421fa51-bbde-40ff-acdf-7878c28b0fb8"
@@ -127,18 +125,16 @@ const GetRegionData = async (
 
 	const AllDataForOrder = await Promise.allSettled([getAllData]);
 
-	// console.log(AllDataForOrder[0]?.value?.data, "AllDataForOrder");
-
 	const finalGJSON = {};
 	// Update the master geo json with order
-	let mandalsData = AllDataForOrder[0].value.data.mandals;
+	const mandalsData = AllDataForOrder[0].value.data.mandals;
 	const metaData = AllDataForOrder[0].value.data.meta_data;
 	const orderInfo = AllDataForOrder[0].value.data.order_details;
 	const aoiDetails = AllDataForOrder[0].value.data.aoi_details;
 	// const pondsData = AllDataForOrder[0].value.data.ponds;
 
 	let currentHighestCountRegionInsight = 0;
-	console.log("mandalsData", mandalsData);
+	let selectedMandal;
 	mandalsData?.map(function (feature) {
 		if (feature.meta.total_running_acreage > currentHighestCountRegionInsight) {
 			currentHighestCountRegionInsight = feature.meta.total_running_acreage;
@@ -167,30 +163,27 @@ const GetRegionData = async (
 						  ) + 1
 						: 1
 			  )}`;
-		// console.log("feature.meta.color", feature.meta.color);
 		feature.meta.mandal = true;
 		feature.meta.village = false;
-		if (data.mandalId) {
-			feature.meta.current_selected = feature?.slug === String(data.mandalId);
-			if (feature.meta?.current_selected) {
-				orderInfo.name = feature.name;
+		if (data?.mandalId && feature?.slug) {
+			feature.meta.current_selected = feature?.slug === data?.mandalId;
+			if (feature?.meta?.current_selected) {
+				selectedMandal = { ...feature };
+				orderInfo.name = feature?.meta?.name;
 			}
 		}
 	});
-
-	mandalsData = mandalsData.filter((a) => !a.meta.current_selected);
-
-	const coordinateArray = [...mandalsData].map((mandal) => JSON.parse(mandal.polygon));
 
 	let boundingBox;
 	// bigBbox;
 	// let bigBboxPolygon;
 
-	if (!data) {
-		boundingBox = turf.polygon(JSON.parse(data.farmAndPondInfo.aoi.polygon).coordinates);
-	} else {
-		// boundingBox = turf.envelope(mandalsData); // Old version
+	if (data?.mandalId && selectedMandal?.slug) {
+		const coordinateArray = [...mandalsData].map((mandal) => JSON.parse(mandal?.polygon));
+
 		boundingBox = coordinateArray.map((polygon) => turf.envelope(polygon));
+		// boundingBox = turf.envelope(mandalsData); // Old version
+		// boundingBox = coordinateArray.map((polygon) => turf.envelope(polygon));
 		// Flatten all bounding boxes into one array of coordinates
 		const allCoordinates = [].concat(
 			...boundingBox.map((bbox) => [
@@ -230,9 +223,7 @@ const GetRegionData = async (
 			}
 		});
 
-		console.log("All Villages", villagesData);
 		villagesData.map((feature) => {
-			console.log("All Villages feature", feature);
 			const currentPondCount = feature.meta?.total_ponds ?? 0;
 			feature.meta.count_status = currentPondCount;
 
@@ -259,7 +250,6 @@ const GetRegionData = async (
 			feature.meta.village_name = feature.name;
 			feature.meta.mandal = false;
 			feature.meta.village = true;
-			// console.log("data",data);
 			if (feature.slug) {
 				// feature.meta.current_selected = feature.slug === data.villageId;
 				feature.meta.current_selected = feature.slug === data.villageId;
@@ -384,7 +374,6 @@ const GetRegionData = async (
 	finalGJSON.features.map((feature) => {
 		feature.meta.request_data = request_data;
 	});
-	console.log("GEMO", finalGJSON.features);
 	if (data.mandalId) {
 		console.log("finalGJSON for mandal before filtering", finalGJSON);
 		//Remove Empty Ponds

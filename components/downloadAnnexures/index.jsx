@@ -35,7 +35,8 @@ function FileDownloadSelector() {
 				data: {},
 				successToast: false,
 			});
-			setFiles(response.data || []);
+			const sortedFiles = response?.data?.sort((a, b) => a?.id - b?.id);
+			setFiles(sortedFiles || []);
 		} catch (err) {
 			console.error("Failed to fetch annexures:", err);
 		} finally {
@@ -73,15 +74,16 @@ function FileDownloadSelector() {
 	};
 
 	return (
-		<Box sx={{ maxWidth: 400, mx: "auto", mt: 2, mr: 5 }}>
+		<Box sx={{ maxWidth: 400, mx: "auto", mr: 3 }}>
 			<Button
 				variant="contained"
 				onClick={handleClick}
 				sx={{
 					width: "100%",
 					justifyContent: "space-between",
-					backgroundColor: "#000000",
+					backgroundColor: "#121A2B",
 					color: "#fff",
+					border: "1px solid #004AAD",
 					"&:hover": {
 						backgroundColor: "#1a1a1a",
 					},

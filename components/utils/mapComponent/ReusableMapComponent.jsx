@@ -31,14 +31,10 @@ function ReusableMapComponent({
 	const setMapRef = useSetAtom(mapRefAtom);
 	const setZoom = useSetAtom(mapZoomAtom);
 	const mapWrapperRef = useRef(null);
-	console.log("VENKAT");
 	const handleMapLoad = () => {
 		if (mapWrapperRef.current) {
-			console.log("logg");
 			const mapInstance = mapWrapperRef.current.getMap();
-			console.log("mapInstance", mapInstance.loaded());
 			const zoom = mapInstance.getZoom();
-			console.log("zoom in reusable", zoom);
 			setZoom(zoom);
 			setMapRef(mapInstance); // ✅ Sets actual MapLibre map object
 		}

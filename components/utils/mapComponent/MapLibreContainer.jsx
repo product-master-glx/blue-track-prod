@@ -5,6 +5,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import MapSource from "./MapSource";
 import { useRef } from "react";
 import ChangeMapView from "./changeMapView";
+import Toggle from "./Toggle";
 function MapLibreContainer({ children }) {
 	const MAP_ZOOM_ATOM = useAtomValue(mapZoomAtom);
 	const MAP_CENTER_ATOM = useAtomValue(mapCenterAtom);
@@ -15,9 +16,7 @@ function MapLibreContainer({ children }) {
 
 	const handleMapLoad = () => {
 		if (mapWrapperRef.current) {
-			console.log("logg");
 			const mapInstance = mapWrapperRef.current.getMap();
-			console.log("mapInstance", mapInstance);
 			// let zoom = mapInstance.getZoom();
 			// console.log("zoom in maplibre", zoom);
 			// setZoom(zoom)
@@ -53,6 +52,7 @@ function MapLibreContainer({ children }) {
 					position: "relative",
 				}}
 			>
+				<Toggle />
 				<ChangeMapView center={MAP_CENTER_ATOM} zoom={MAP_ZOOM_ATOM} />
 				<MapSource />
 				{children}

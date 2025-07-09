@@ -31,6 +31,7 @@ const Toggle = () => {
 				exclusive
 				onChange={handleToggle}
 				className="w-full"
+				sx={{ borderRadius: "24px" }}
 			>
 				<ToggleButton
 					value={true}

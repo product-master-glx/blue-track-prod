@@ -104,7 +104,16 @@ function Navbar() {
 			sx={{ backgroundColor: "light dark", paddingY: "3px", height: "100%" }}
 		>
 			<Container maxWidth="xxl" sx={{ zIndex: 15000 }}>
-				<Toolbar>
+				<Toolbar
+					style={{
+						minHeight: "74px",
+						display: "flex",
+						flexDirection: "row",
+						alignItems: "center",
+						justifyContent: "center",
+						gap: "16px",
+					}}
+				>
 					<img
 						src={"/galaxeye-white.png"}
 						width="100px"
@@ -121,14 +130,22 @@ function Navbar() {
 								flexGrow: 0,
 								display: { md: "flex" },
 								alignItems: "flex-end",
-								marginRight: "20px",
 							}}
 						>
 							<Button
-								variant="outlined"
-								startIcon={<HomeIcon />}
-								sx={{ width: 90, padding: 1, color: "white", borderColor: "grey" }}
+								variant="contained"
 								onClick={navigateBackToLandingPage}
+								sx={{
+									width: "100%",
+									justifyContent: "space-between",
+									backgroundColor: "#121A2B",
+									color: "#fff",
+									border: "1px solid #004AAD",
+									"&:hover": {
+										backgroundColor: "#1a1a1a",
+									},
+								}}
+								startIcon={<HomeIcon />}
 							>
 								Home
 							</Button>
