@@ -37,7 +37,18 @@ const Toggle = () => {
 					value={true}
 					className="w-full whitespace-nowrap"
 					aria-label="satellite-on"
-					sx={{ paddingX: "5px" }}
+					sx={{
+						px: "5px",
+						borderRadius: "12px",
+						"&.Mui-selected": {
+							backgroundColor: "#004aad",
+							color: "white",
+							"&:hover": {
+								backgroundColor: "#009bbc",
+								border: "none",
+							},
+						},
+					}}
 				>
 					Satellite View
 				</ToggleButton>
@@ -46,7 +57,18 @@ const Toggle = () => {
 					value={false}
 					className="w-full"
 					aria-label="satellite-off"
-					sx={{ paddingX: "5px" }}
+					sx={{
+						px: "5px",
+						borderRadius: "12px",
+						"&.Mui-selected": {
+							backgroundColor: "#004aad",
+							color: "white",
+							"&:hover": {
+								backgroundColor: "#009bbc",
+								border: "none",
+							},
+						},
+					}}
 				>
 					Street View
 				</ToggleButton>
