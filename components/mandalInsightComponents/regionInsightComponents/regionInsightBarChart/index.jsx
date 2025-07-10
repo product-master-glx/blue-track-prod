@@ -80,7 +80,6 @@ function RegionInsightBarChart() {
 					data.push(item);
 				}
 			}
-			console.log(data);
 		}
 		return data;
 	}, [BAR_CHART_TYPE, METADATA_FOR_ORDER]);

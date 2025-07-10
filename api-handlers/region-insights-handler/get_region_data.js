@@ -16,7 +16,6 @@ import { colorGradientInsight } from "@/constants/index";
 // const MAXLIMITFORPONDS = 5000;
 
 // const getNextBatchesInBackground = async (data, batches) => {
-// 	console.log("Getting batches", batches);
 // 	const promises = [];
 
 // 	for (let index = 1; index <= batches; index++) {
@@ -57,11 +56,9 @@ import { colorGradientInsight } from "@/constants/index";
 // 			final_fsm_features = [...final_fsm_features, ...fsmData.features];
 // 		}
 // 	});
-// 	console.log("final_fsm_features length", final_fsm_features.length);
 
 // 	fsm.features = final_fsm_features;
 
-// 	console.log("After loading batches", fsm);
 // 	store.set(geoJSONCurrentlyBeingDisplayedAtom, fsm);
 // };
 
@@ -82,7 +79,6 @@ const GetRegionData = async (
 ) => {
 	const store = getDefaultStore();
 	const current_order = store.get(currentOrderDataAtom);
-	// console.log("data region props",data);
 
 	if (
 		current_order?.orderId == data.orderId &&
@@ -301,7 +297,6 @@ const GetRegionData = async (
 	}
 
 	if (AllDataForOrder[0].value.data.ponds) {
-		console.log("Ponds Data>>>>>>>>>>>>>>>>>>>>>>>>>", AllDataForOrder[0].value.data.ponds);
 		const pondsData = AllDataForOrder[0].value.data.ponds;
 		let selectedPond;
 		currentHighestCountRegionInsight = 0;
@@ -316,8 +311,6 @@ const GetRegionData = async (
 
 		// Process each pond feature
 		pondsData.map((feature) => {
-			console.log("Processing Pond Feature", feature);
-
 			feature.meta = feature.meta || {}; // Ensure meta exists
 			feature.meta.color = sateliteView
 				? `${colorGradientInsight.getColor(
@@ -360,14 +353,12 @@ const GetRegionData = async (
 
 		// Add ponds to the final GeoJSON if a village is selected
 		if (data.villageId && pondsData.length > 0) {
-			console.log("Adding pond polygons to GeoJSON for village");
 			finalGJSON.features = [...finalGJSON.features, ...pondsData];
 		}
 	}
 
 	store.set(currentHighestCountRegionInsightAtom, currentHighestCountRegionInsight);
 
-	// console.log(metaData?.Total, MAXLIMITFORPONDS);
 	// if (metaData?.Total > MAXLIMITFORPONDS) {
 	// 	getNextBatchesInBackground(data, Math.ceil(metaData?.Total / MAXLIMITFORPONDS) - 1);
 	// }
@@ -375,18 +366,15 @@ const GetRegionData = async (
 		feature.meta.request_data = request_data;
 	});
 	if (data.mandalId) {
-		console.log("finalGJSON for mandal before filtering", finalGJSON);
 		//Remove Empty Ponds
 		finalGJSON.features = finalGJSON.features.filter(
 			(a) => a.meta.village || a.meta.total_ponds > 0 || a.meta.pond
 		);
-		console.log("finalGJSON for mandal after filtering", finalGJSON);
 	}
 	if (data.villageId) {
 		finalGJSON.features = finalGJSON.features.filter(
 			(a) => a.meta.village || a.meta.total_ponds > 0 || a.meta.pond
 		);
-		console.log("finalGJSON for village", finalGJSON);
 	}
 
 	const centroidGeoJson = {
@@ -423,7 +411,6 @@ const GetRegionData = async (
 
 	SET_MASTER_GEO_JSON(finalGJSON);
 	// Show the current GEO Json directly
-	console.log(current_aoi);
 	const geoJson = {
 		type: "FeatureCollection",
 		features: finalGJSON.features.map((item) => ({
@@ -462,18 +449,12 @@ const GetRegionData = async (
 	// 3. Compute the centroid
 	const centroid = turf.centroid(polygonFeature);
 
-	console.log("CENTROID:", centroid.geometry.coordinates);
-	console.log("Features count:", geoJson.features.length);
-	console.log("First feature coords:", geoJson.features[0]?.geometry?.coordinates);
-
-	// console.log(centroid, "centroid");
 	// Zoom in to the coordinates
 	SET_MAP_CENTER_ATOM([
 		Number(centroid.geometry.coordinates[0]), // Ensure number type
 		Number(centroid.geometry.coordinates[1]),
 	]);
 
-	console.log(finalGJSON, "MJ");
 	// Set the meta data
 	SET_METADATA_FOR_ORDER(metaData);
 	// Set the zoom

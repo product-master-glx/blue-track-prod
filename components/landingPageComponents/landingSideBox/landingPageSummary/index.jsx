@@ -45,7 +45,6 @@ function LandingPageSummary() {
 				});
 			}
 		});
-		// console.log("FILTERED_ORDER_DATA", FILTERED_ORDER_DATA[0]?.order);
 		return {
 			meta: [
 				{
@@ -177,7 +176,6 @@ function LandingPageSummary() {
 							);
 						}}
 						onClick={(item) => {
-							console.log(item);
 							if (!item.data?.locked) {
 								navigate(`/region-insight/${item.data?.order.aoi_slug}`);
 							}

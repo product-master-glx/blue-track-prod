@@ -47,16 +47,12 @@ function LandingPage() {
 		const orderData = GetOrderDataHandler();
 		// Wait for both APIs to get completed
 		Promise.allSettled([orderData]).then((res) => {
-			console.log("Landing Pages APIs", res);
-
 			const allOrderData = res[0].value;
-			// console.log(allOrderData, "ayooooooo");
 			// If the order data and graph data exists
 			if (allOrderData) {
 				// // Update the order data with summary data, filter the null values
 				// const temp_order_data = allOrderData.map((singleOrderData) => {
 				// 	singleOrderData = { ...singleOrderData };
-				// 	console.log(singleOrderData, "singleOrderData");
 				// 	// Update the summary of the order
 				// 	singleOrderData.avg_doc = allOrderData["avg_doc"];
 				// 	singleOrderData.min_doc = allOrderData["min_doc"];
@@ -65,7 +61,6 @@ function LandingPage() {
 
 				// 	return singleOrderData;
 				// });
-				// console.log(temp_order_data, allOrderData, "temp_order_data1");
 				SET_ALL_ORDER_DATA(allOrderData);
 				SET_FILTERED_ORDER_DATA(allOrderData);
 			}

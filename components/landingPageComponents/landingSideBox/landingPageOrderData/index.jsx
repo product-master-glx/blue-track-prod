@@ -29,15 +29,13 @@ const styles = {
  */
 function LandingPageOrderData() {
 	const FILTERED_ORDER_DATA = useAtomValue(listOfFilteredOrderDataAtom);
-	console.log("FILTERED_ORDER_DATA", FILTERED_ORDER_DATA);
 	const SET_TOTAL_ORDERS_THAT_ARE_EITHER_IN_PROCESSED_OR_PROCESSING_STATE = useSetAtom(
 		totalOrdersThatAreEitherInProcessedOrProcessingStateAtom
 	);
 
 	useEffect(() => {
 		SET_TOTAL_ORDERS_THAT_ARE_EITHER_IN_PROCESSED_OR_PROCESSING_STATE(0);
-		FILTERED_ORDER_DATA?.map((item) => {
-			console.log(item, "ello");
+		FILTERED_ORDER_DATA?.map(() => {
 			// if (item.insights[0]?.status == "processed" || !item.insights[0]) {
 			SET_TOTAL_ORDERS_THAT_ARE_EITHER_IN_PROCESSED_OR_PROCESSING_STATE(
 				(TOTAL_ORDERS_THAT_ARE_EITHER_IN_PROCESSED_OR_PROCESSING_STATE) =>
@@ -75,7 +73,6 @@ function LandingPageOrderData() {
 				}}
 			>
 				{FILTERED_ORDER_DATA?.map((item, index) => {
-					console.log(item, "dadadadadadadadad");
 					let polygonParsed = item.order?.aoi?.polygon;
 					// const polygonParsed = JSON.parse(item.order?.aoi?.polygon);
 					if (typeof polygonParsed === "string") {
@@ -86,25 +83,6 @@ function LandingPageOrderData() {
 							return null;
 						}
 					}
-					console.log(
-						"Props",
-						// 	// "item.order_id",item.order.id,
-						// 	"item.order?.id",item.order?.id,
-						// 	"item.order?.aoi.name",item.order?.aoi.name,
-						// 	"item.order?.aoi.status",item.order?.aoi.status,
-						// 	"item.order.status",item.order.status,
-						// 	"item.order.meta[0]?.meta.Running",item.order.meta[0]?.meta.Running,
-						// 	"item.order.meta[0]?.meta.avg_doc",item.order.meta[0]?.meta.avg_doc,
-						// 	"item.order.meta[0]?.meta.Total",item.order.meta[0]?.meta.Total,
-						// 	"item?.order.last_insight_date",item?.order.last_insight_date,
-						// 	// "polygon",JSON.parse(pol),
-						// 	"farm info",item.order,
-						// 	"item.locked",item.locked,
-						// 	"item.order.meta[0]?.meta.Running",item.order.meta[0]?.meta.Running,
-						// 	"item.order.created_at",item.order.created_at,
-						"item.order.aoi.status",
-						item.order.aoi.status
-					);
 					if (item.order?.id) {
 						return (
 							<OrderCardElement

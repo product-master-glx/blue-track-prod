@@ -39,7 +39,6 @@ function RegionInsightGraph() {
 	useEffect(() => {
 		if (METADATA_FOR_ORDER?.count_summary[CURRENT_LINE_CHART_DROPDOWN_VALUE]) {
 			setLiveReferenceLine({ toShow: false, date: {} });
-			console.log(METADATA_FOR_ORDER, "METADATA_FOR_ORDER");
 			const unorderdCountSummaryObject =
 				METADATA_FOR_ORDER?.count_summary[CURRENT_LINE_CHART_DROPDOWN_VALUE];
 			const orderdCountSummaryObject = Object.keys(unorderdCountSummaryObject)
@@ -53,7 +52,6 @@ function RegionInsightGraph() {
 				Object.values(orderdCountSummaryObject);
 			var tempArr = [];
 			const currentDateAsDayJSObject = dayjs();
-			console.log(currentDateAsDayJSObject, "currentDateAsDayJSObject");
 			var movedFromActualToPredictedBoolean = false;
 
 			//mapping

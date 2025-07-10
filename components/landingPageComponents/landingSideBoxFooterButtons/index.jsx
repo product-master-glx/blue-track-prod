@@ -43,16 +43,10 @@ function LandingSideBoxFooterButtons() {
 	};
 
 	useEffect(() => {
-		console.log(
-			COOKIES?.allowed?.order?.limit,
-			TOTAL_ORDERS_THAT_ARE_EITHER_IN_PROCESSED_OR_PROCESSING_STATE,
-			"yupppp"
-		);
 		if (
 			COOKIES?.allowed?.order?.limit <=
 			TOTAL_ORDERS_THAT_ARE_EITHER_IN_PROCESSED_OR_PROCESSING_STATE
 		) {
-			console.log("set");
 			SET_IS_ORDER_LIMIT_SET_BOOLEAN(true);
 		} else {
 			SET_IS_ORDER_LIMIT_SET_BOOLEAN(false);

@@ -64,7 +64,6 @@ function MapGeocoder() {
 					localGeocoder: coordinatesGeocoder,
 				});
 				geocoder.on("result", (selected) => {
-					console.log(selected);
 					setMarkerCoordinates({
 						longitude: selected?.result?.center?.[0],
 						latitude: selected?.result?.center?.[1],

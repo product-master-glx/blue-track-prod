@@ -24,11 +24,9 @@ const CheckCookies = ({ children }) => {
 
 	useEffect(() => {
 		//fetch accessToken cookie
-		console.log("Checking cookies");
 		// Get the data from localstorage , don't use useAtomValue hook, if you do please parse the data first before using it
 		const userData = JSON.parse(localStorage.getItem("userData"));
 		// const accessToken = Cookies?.get("accessToken");
-		console.log("accessToken", userData?.name, authURLs.includes(location.pathname));
 		// If access token does not exist and we are not on authentication pages, redirect to sign in page
 		if (!userData?.name && !authURLs.includes(location.pathname)) {
 			// Update the global access token state to null
@@ -44,9 +42,6 @@ const CheckCookies = ({ children }) => {
 
 		// If access token exists
 		if (userData?.name) {
-			console.log("validating", userData);
-			console.log("setting userAccessToken");
-			console.log(userData);
 			// If the previous access token is not same as the current
 			if (prevAccessToken.current?.name !== userData.name) {
 				// Set the access token
@@ -55,7 +50,6 @@ const CheckCookies = ({ children }) => {
 				prevAccessToken.current = userData;
 				// Decode the token
 				// const decoded = jwt_decode(accessToken);
-				// console.log(decoded);
 				// Identify user for monitoring purposes
 				H.identify(`${userData.name}`, {
 					id: `${userData.name}`,

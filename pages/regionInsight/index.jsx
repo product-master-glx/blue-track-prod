@@ -39,10 +39,7 @@ const defineGeoJSONsForAllFarmStatus = (
 		"Not Available": { type: "FeatureCollection", features: [] },
 	};
 
-	console.log(MASTER_GEOJSON, "MASTER_GEOJSON");
-
 	MASTER_GEOJSON.features.map((item) => {
-		//console.log(item);
 		if (item?.properties?.farm_status === "NA") {
 			temporaryJSONElement["Not Available"].features.push(item);
 		} else {
@@ -86,11 +83,9 @@ function RegionInsight() {
 	const SET_CURRENT_ORDER_DATA = useSetAtom(currentOrderDataAtom);
 	const satliteView = useAtom(sateliteViewAtom);
 	const mapRef = useAtomValue(mapRefAtom);
-	// console.log("REGION_DATA_GATHERED_FROM_LANDING_PAGE", REGION_DATA_GATHERED_FROM_LANDING_PAGE);
 	useEffect(() => {
 		SET_ORDER_ID_FOR_CURRENT_ORDER(orderId);
 		SET_INSIGHT_ID_FOR_CURRENT_ORDER(orderId);
-		console.log("orderId", orderId);
 		if (!COOKIES.name) return;
 		//We are not on the landing page
 		SET_IS_USER_ON_LANDING_PAGE(false);

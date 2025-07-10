@@ -17,10 +17,6 @@ function QuestionOverview(props) {
 
 	const getQuestions = async (aoiType, aoiSlugType) => {
 		const questions = await getBotQuestions(aoiType, aoiSlugType, aoiSlug);
-		console.log(
-			`questions for:${aoiType},aoiSlugType:${aoiSlugType}, aoiSlug, ${aoiSlug}`,
-			questions
-		);
 		setBotQuestions(questions.data?.questions);
 		setBotAoiArray(questions.data);
 		setAoiType(aoiType);
@@ -69,7 +65,6 @@ function QuestionOverview(props) {
 							size="small"
 							onClick={async () => {
 								setState((state) => ({ ...state, selectedQuestion: item }));
-								console.log("props.actionProvider", props.actionProvider);
 								props.actionProvider.selectQuestion();
 							}}
 							sx={{ textAlign: "left" }}

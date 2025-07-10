@@ -14,7 +14,6 @@ function ToggleButtons() {
 	const handleToggleInLandingPageSideBox = (_event, newToggleSelection) => {
 		if (newToggleSelection !== null) {
 			setSelectedToggleInLandingPageSideBox(newToggleSelection);
-			console.log(newToggleSelection, "toggle switch");
 		}
 	};
 

@@ -19,6 +19,5 @@ export default async function GetOrderDataHandler() {
 		successToast: false,
 	});
 	const allInfoOrders = outputOrder?.data;
-	console.log(allInfoOrders, "allInfoOrders");
 	return allInfoOrders;
 }

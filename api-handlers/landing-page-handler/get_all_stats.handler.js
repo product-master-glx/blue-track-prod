@@ -20,6 +20,5 @@ export default async function getAllStatsHandler() {
 		},
 		successToast: false,
 	});
-	console.log(graphData, "graphData");
 	return graphData;
 }

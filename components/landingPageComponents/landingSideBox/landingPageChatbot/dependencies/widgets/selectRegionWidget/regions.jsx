@@ -31,7 +31,6 @@ function RegionsOverview(props) {
 				: "district";
 		setMessage("");
 		const questions = await getBotQuestions(prevAoiType, item.aoi_type, item.slug);
-		console.log("questions:", questions.data);
 		setBotQuestions(questions.data?.questions);
 		if (item.aoi_type !== "village") setAoiSlug(item.slug);
 	};

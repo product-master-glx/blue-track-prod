@@ -20,7 +20,6 @@ function RegionInsightHeaderButtons() {
 		return "District";
 	}, [mandalId, villageId]);
 
-	console.log("CURRENT_ORDER_DATA", CURRENT_ORDER_DATA);
 	return (
 		<Stack
 			direction="row"

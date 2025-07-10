@@ -12,6 +12,5 @@ export default async function getBotAnswer(question_id, aoi_slug, aoi_type) {
 		},
 		successToast: false,
 	});
-	console.log(answerByBot, "answerByBot");
 	return answerByBot;
 }

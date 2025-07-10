@@ -14,7 +14,6 @@ function InsightMap({ children }) {
 	const { villageId } = useParams();
 	const currentHighestCountRegionInsight = useAtomValue(currentHighestCountRegionInsightAtom);
 
-	// console.log("currentHighestCountRegionInsight",currentHighestCountRegionInsight)
 	return (
 		<>
 			<Box

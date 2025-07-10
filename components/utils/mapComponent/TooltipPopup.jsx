@@ -104,7 +104,7 @@ function TooltipPopup({ MAP_LAYER_ID }) {
 	const popupRef = useRef(true);
 	const { current: map } = useMap();
 	const navigate = useNavigate();
-	console.log("MAP_LAYER_ID:", MAP_LAYER_ID);
+
 	const handlePopupDisplay = useCallback(
 		(e, popup) => {
 			const geometryType = e.features[0].geometry.type.toLowerCase();
@@ -113,10 +113,6 @@ function TooltipPopup({ MAP_LAYER_ID }) {
 					? polygon(e.features[0].geometry.coordinates)
 					: multiPolygon(e.features[0].geometry.coordinates)
 			).geometry.coordinates.slice();
-			console.log(
-				"--------+++++++++++----------e.features[0]---------++++++++------------",
-				e.features[0]
-			);
 			const properties = e.features[0].properties;
 			while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
 				coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
@@ -143,9 +139,6 @@ function TooltipPopup({ MAP_LAYER_ID }) {
 			// // const coords = e.features[0].geometry.coordinates;
 
 			// coords.forEach((ring, index) => {
-			// 	console.log(`Ring ${index}: length = ${ring.length}`);
-			// 	console.log(`Ring ${index} first point = ${JSON.stringify(ring[0])}`);
-			// 	console.log(`Ring ${index} last point = ${JSON.stringify(ring[ring.length - 1])}`);
 			// });
 
 			// const turfPoly = polygon(coords); // Make sure this includes ALL rings

@@ -59,18 +59,11 @@ const onClickCardContent = (
 	navigate
 ) => {
 	// Update only if number of ponds are available and current order status is processed
-	console.log("SET_REGION_DATA_GATHERED_FROM_LANDING_PAGE can access", can_access);
 	if (!can_access) {
 		// Start loading
 		SET_LOADING_SCREEN_BOOLEAN(true);
 		// Get the insight id
 		const aoi_slug = farmAndPondInfo.aoi_slug;
-		console.log("SET_REGION_DATA_GATHERED_FROM_LANDING_PAGE", {
-			regionCoordinates,
-			farmAndPondInfo,
-			orderId,
-			aoi_slug,
-		});
 		// To update the order data
 		SET_REGION_DATA_GATHERED_FROM_LANDING_PAGE({
 			regionCoordinates,
@@ -128,13 +121,11 @@ function OrderCardElement({
 	// const daysLeftForNextInsight = 5 - daysSinceLastInight;
 
 	useEffect(() => {
-		console.log(createdAt, "createdAt");
 		if (createdAt && can_access) {
 			const dateWhenOrderWasPlaced = dayjs(createdAt);
 			const currentDate = dayjs();
 
 			if (currentDate.diff(dateWhenOrderWasPlaced, "day") > 1) {
-				console.log(currentDate.diff(dateWhenOrderWasPlaced, "day"), "aborted");
 				setCurrentOrderStatus("aborted");
 			}
 		}

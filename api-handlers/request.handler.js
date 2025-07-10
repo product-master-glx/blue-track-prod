@@ -46,7 +46,6 @@ export default async function request_handler({
 		if (isAuthenticationRequired) {
 			const defaultStore = getDefaultStore();
 			const USER_ACCESS_TOKEN_VALUE = defaultStore.get(userDataAtom);
-			console.log("USER_ACCESS_TOKEN_VALUE", USER_ACCESS_TOKEN_VALUE);
 			if (!USER_ACCESS_TOKEN_VALUE?.name) {
 				toast.error("Please log in to continue");
 				reject({ ...responseObject, message: "Please log in to continue" });
@@ -67,8 +66,6 @@ export default async function request_handler({
 				...headers,
 			}, //HEADERS for the server side generated request
 		};
-
-		console.log("Sending request", req_obj);
 
 		axios
 			.request(req_obj)

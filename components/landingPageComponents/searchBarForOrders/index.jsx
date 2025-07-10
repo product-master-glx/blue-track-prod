@@ -12,7 +12,6 @@ function SearchBarForOrders() {
 
 	// Search and filter the all orders using the name
 	const handleChange = (event) => {
-		// console.log(searchTerm);
 		SET_FILTERED_ORDER_DATA(
 			ALL_ORDER_DATA.filter((order) => {
 				return order.order?.aoi.name.toLowerCase().includes(event.target.value);

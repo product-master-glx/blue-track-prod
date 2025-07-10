@@ -12,7 +12,6 @@ import RegionInsightToggleButton from "../regionInsightToggleButton";
  */
 function RegionInsightData() {
 	const METADATA_FOR_ORDER = useAtomValue(metaDataForOrderAtom);
-	console.log("METADATA_FOR_ORDER", METADATA_FOR_ORDER);
 	const totalRunningAcreage = Number(METADATA_FOR_ORDER?.total_running_acreage).toFixed(2);
 	const percentageRunningAcreage = (
 		(METADATA_FOR_ORDER?.total_running_acreage / METADATA_FOR_ORDER?.total_acreage) *

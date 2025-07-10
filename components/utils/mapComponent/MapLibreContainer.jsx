@@ -18,7 +18,6 @@ function MapLibreContainer({ children }) {
 		if (mapWrapperRef.current) {
 			const mapInstance = mapWrapperRef.current.getMap();
 			// let zoom = mapInstance.getZoom();
-			// console.log("zoom in maplibre", zoom);
 			// setZoom(zoom)
 
 			setMapRef(mapInstance); // ✅ Sets actual MapLibre map object
