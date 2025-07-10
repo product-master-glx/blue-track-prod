@@ -298,9 +298,9 @@ const GetRegionData = async (
 
 	if (AllDataForOrder[0].value.data.ponds) {
 		const pondsData = AllDataForOrder[0].value.data.ponds;
-		let selectedPond;
 		currentHighestCountRegionInsight = 0;
-		console.log("selectedPond", selectedPond);
+		let selectedPond;
+		console.log("selected", selectedPond);
 
 		// Calculate the highest acreage for ponds
 		pondsData.map(function (feature) {
