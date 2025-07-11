@@ -134,7 +134,7 @@ const SignIn = () => {
 						<LockOutlinedIcon />
 					</Avatar>
 					<Typography component="h1" variant="h5" color="white">
-						Sign in to Galaxeye Blue
+						Sign in to Galaxeye Blue Team
 					</Typography>
 					<form onSubmit={loginStarted ? signInButton : signInStarterButton}>
 						<TextField
