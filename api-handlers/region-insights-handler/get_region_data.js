@@ -172,7 +172,6 @@ const GetRegionData = async (
 
 	let boundingBox;
 	// bigBbox;
-	// let bigBboxPolygon;
 
 	if (data?.mandalId && selectedMandal?.slug) {
 		const coordinateArray = [...mandalsData].map((mandal) => JSON.parse(mandal?.polygon));
